@@ -12,19 +12,14 @@
             background-color: #000;
             color: #fff;
             overflow-y: scroll;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         .thumbnail-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Sveigjanlegar dálkabreiddir */
             gap: 10px; /* Bil á milli mynda */
             padding: 10px;
             justify-items: center;
-            flex-grow: 1;
-            height: 100%;
         }
 
         .thumbnail {
