@@ -11,6 +11,7 @@
             font-family: Arial, sans-serif;
             background-color: #000;
             color: #fff;
+            overflow-y: scroll;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -18,18 +19,17 @@
 
         .thumbnail-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 5px; /* Minimized gaps for better space utilization */
-            padding: 5px;
-            justify-items: stretch;
-            align-items: stretch;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px; /* Bil á milli mynda */
+            padding: 10px;
+            justify-items: center;
             flex-grow: 1;
-            overflow-y: auto;
+            height: 100%;
         }
 
         .thumbnail {
-            width: 100%; /* Ensures thumbnails adjust to their container */
-            aspect-ratio: 1 / 1; /* Ensures square thumbnails */
+            width: 100%; /* Þumalmyndir fylla dálkana sem grid-template-columns skilgreinir */
+            height: auto; /* Viðheldur hlutföllum */
             cursor: pointer;
             border: 2px solid #fff;
             box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
@@ -37,7 +37,7 @@
         }
 
         .thumbnail:hover {
-            transform: scale(1.05);
+            transform: scale(1.05); /* Þumalmyndir stækka aðeins við músarvísun */
             box-shadow: 0 6px 12px rgba(255, 255, 255, 0.4);
         }
 
@@ -46,7 +46,6 @@
             width: 100%;
             background-color: #121212;
             padding: 20px;
-            overflow-y: auto;
         }
 
         .page-wrapper {
