@@ -18,25 +18,18 @@
 
         .thumbnail-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 5px; /* Minimized gaps for better space utilization */
             padding: 5px;
             justify-items: stretch;
             align-items: stretch;
             flex-grow: 1;
-            height: 100%;
-        }
-
-        @media (max-width: 600px) {
-            .thumbnail-container {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjust for smaller screens */
-                gap: 3px; /* Reduce gap for better utilization */
-            }
+            overflow-y: auto;
         }
 
         .thumbnail {
             width: 100%; /* Ensures thumbnails adjust to their container */
-            aspect-ratio: 210 / 297; /* A4 dimensions */
+            aspect-ratio: 1 / 1; /* Ensures square thumbnails */
             cursor: pointer;
             border: 2px solid #fff;
             box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
