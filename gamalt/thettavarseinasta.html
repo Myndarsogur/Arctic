@@ -18,25 +18,34 @@
 
         .thumbnail-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 0; /* Remove gaps to maximize space usage */
-            padding: 0;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 5px; /* Minimized gaps for better space utilization */
+            padding: 5px;
             justify-items: stretch;
             align-items: stretch;
             flex-grow: 1;
             height: 100%;
         }
 
+        @media (max-width: 600px) {
+            .thumbnail-container {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjust for smaller screens */
+                gap: 3px; /* Reduce gap for better utilization */
+            }
+        }
+
         .thumbnail {
             width: 100%; /* Ensures thumbnails adjust to their container */
             aspect-ratio: 210 / 297; /* A4 dimensions */
             cursor: pointer;
-            border: none; /* Remove borders to maximize space */
+            border: 2px solid #fff;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .thumbnail:hover {
-            transform: scale(1.02);
-            z-index: 1;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(255, 255, 255, 0.4);
         }
 
         .reader-container {
