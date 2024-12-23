@@ -16,24 +16,24 @@
 
         .thumbnail-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Sveigjanlegar dálkabreiddir */
-            gap: 10px; /* Bil á milli mynda */
-            padding: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 20px;
             justify-items: center;
         }
 
         .thumbnail {
-            width: 100%; /* Þumalmyndir fylla dálkana sem grid-template-columns skilgreinir */
-            height: auto; /* Viðheldur hlutföllum */
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
             cursor: pointer;
             border: 2px solid #fff;
             box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .thumbnail:hover {
-            transform: scale(1.05); /* Þumalmyndir stækka aðeins við músarvísun */
-            box-shadow: 0 6px 12px rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
         }
 
         .reader-container {
