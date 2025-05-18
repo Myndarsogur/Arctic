@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Comic Book Reader</title>
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comic Book Reader</title>
+    <style>
         body {
             margin: 0;
             padding: 0;
@@ -81,96 +80,33 @@
             background-color: rgba(255, 255, 255, 1);
         }
 
-    
-.thumbnail-card img {
-    margin-bottom: 6px;
-}
-
-@media (max-width: 768px) {
-    .thumbnail-container {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    }
-
-    .thumbnail-card {
-        padding: 8px;
-    }
-
-    .thumbnail-card img {
-        width: 100%;
-        height: auto;
-        margin-bottom: 8px;
-    }
-
-    .thumbnail-label {
-        font-size: 15px;
-        line-height: 1.4;
-    }
-}
-
-.thumbnail-label {
-    margin-bottom: 6px;
-}
-.thumbnail-card img {
-    margin-bottom: 0 !important;
-}
-</style>
-<style>
-.thumbnail-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-    padding: 10px;
-}
-
-.thumbnail-card {
-    position: relative;
-    text-align: center;
-    background-color: #111;
-    padding: 5px;
-    border-radius: 8px;
-    transition: transform 0.2s;
-}
-
-.thumbnail-card:hover {
-    transform: scale(1.05);
-    outline: 2px solid white;
-}
-
-.thumbnail-label {
-    color: white;
-    font-size: 14px;
-    margin-top: 4px;
-}
-
-@media (max-width: 768px) {
-    .thumbnail-label {
-        font-size: 12px;
-    }
-}
-</style></head>
+    </style>
+</head>
 <body>
-<div class="thumbnail-container" id="thumbnailContainer">
-<!-- Thumbnails for authors -->
-<div class="thumbnail-card"><div class="thumbnail-label">Breki</div><img alt="Breki" class="thumbnail" onclick="openReader('breki')" src="https://imgur.com/g0glydf.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Elva</div><img alt="Elva" class="thumbnail" onclick="openReader('elva')" src="https://imgur.com/ftutJ2Y.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Embla Eir</div><img alt="Embla Eir" class="thumbnail" onclick="openReader('embla')" src="https://imgur.com/IFMevhF.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Erla</div><img alt="Erla" class="thumbnail" onclick="openReader('erla')" src="https://imgur.com/NlHVGQh.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Guðmundur</div><img alt="Guðmundur" class="thumbnail" onclick="openReader('gudmundur')" src="https://imgur.com/RxuQfAc.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Krummi</div><img alt="Krummi" class="thumbnail" onclick="openReader('krummi')" src="https://imgur.com/ofXJsEy.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Máni</div><img alt="Máni" class="thumbnail" onclick="openReader('mani')" src="https://imgur.com/UerRRiR.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Moira</div><img alt="Moira" class="thumbnail" onclick="openReader('moira')" src="https://imgur.com/PXkxJjL.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Tinna Maren</div><img alt="Tinna Maren" class="thumbnail" onclick="openReader('tinna')" src="https://imgur.com/TRIUGJ5.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Tolli</div><img alt="Tolli" class="thumbnail" onclick="openReader('tolli')" src="https://imgur.com/MkF7Imn.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Vigdís</div><img alt="Vigdís" class="thumbnail" onclick="openReader('vigdís')" src="https://imgur.com/zIpE879.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Gabríela Rós</div><img alt="Gabríela Rós" class="thumbnail" onclick="openReader('gabríela')" src="https://imgur.com/5Murltx.jpeg"/></div>
-</div>
-<div class="reader-container" id="readerContainer" style="display: none;">
-<button class="exit-reader" onclick="closeReader()">Bréf til heimskautsins</button>
-<div class="page-wrapper" id="readerPages">
-<!-- Pages will load dynamically -->
-</div>
-</div>
-<script>
+    <div class="thumbnail-container" id="thumbnailContainer">
+        <!-- Thumbnails for authors -->
+        <img class="thumbnail" src="https://imgur.com/g0glydf.jpeg" alt="Breki" onclick="openReader('breki')">
+        <img class="thumbnail" src="https://imgur.com/ftutJ2Y.jpeg" alt="Elva" onclick="openReader('elva')">
+        <img class="thumbnail" src="https://imgur.com/IFMevhF.jpeg" alt="Embla Eir" onclick="openReader('embla')">
+        <img class="thumbnail" src="https://imgur.com/NlHVGQh.jpeg" alt="Erla" onclick="openReader('erla')">
+        <img class="thumbnail" src="https://imgur.com/RxuQfAc.jpeg" alt="Guðmundur" onclick="openReader('gudmundur')">
+        <img class="thumbnail" src="https://imgur.com/ofXJsEy.jpeg" alt="Krummi" onclick="openReader('krummi')">
+        <img class="thumbnail" src="https://imgur.com/UerRRiR.jpeg" alt="Máni" onclick="openReader('mani')">
+        <img class="thumbnail" src="https://imgur.com/PXkxJjL.jpeg" alt="Moira" onclick="openReader('moira')">
+        <img class="thumbnail" src="https://imgur.com/TRIUGJ5.jpeg" alt="Tinna Maren" onclick="openReader('tinna')">
+        <img class="thumbnail" src="https://imgur.com/MkF7Imn.jpeg" alt="Tolli" onclick="openReader('tolli')">
+        <img class="thumbnail" src="https://imgur.com/zIpE879.jpeg" alt="Vigdís" onclick="openReader('vigdís')">
+        <img class="thumbnail" src="https://imgur.com/5Murltx.jpeg" alt="Gabríela Rós" onclick="openReader('gabríela')">
+    </div>
+
+    <div class="reader-container" id="readerContainer" style="display: none;">
+        <button class="exit-reader" onclick="closeReader()">Bréf til heimskautsins</button>
+        <div class="page-wrapper" id="readerPages">
+            <!-- Pages will load dynamically -->
+        </div>
+    </div>
+
+    <script>
         const comicData = {
             breki: [
                 "https://imgur.com/g0glydf.jpeg",
