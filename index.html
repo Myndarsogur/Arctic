@@ -1,304 +1,616 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Comic Book Reader</title>
-<style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .thumbnail-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Three columns */
-            grid-auto-rows: calc((100vh - 10px) / 4); /* Four rows */
-            gap: 0;
-            padding: 0;
-            height: 100%;
-        }
-
-        .thumbnail {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            aspect-ratio: 210 / 297; /* A4 aspect ratio */
-            cursor: pointer;
-            border: none;
-        }
-
-        .thumbnail:hover {
-            transform: scale(1.02);
-            z-index: 1;
-        }
-
-        .reader-container {
-            display: block;
-            width: 100%;
-            background-color: #121212;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .page-wrapper {
-            display: block;
-            margin-bottom: 20px;
-        }
-
-        .page {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            background-color: #fff;
-            border: 1px solid #333;
-        }
-
-        .exit-reader {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-            color: #000;
-            padding: 5px 10px;
-            font-size: 14px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1000;
-        }
-
-        .exit-reader:hover {
-            background-color: rgba(255, 255, 255, 1);
-        }
-
-    
-.thumbnail-card img {
-    margin-bottom: 6px;
-}
-
-@media (max-width: 768px) {
-    .thumbnail-container {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Arctic Comics Journal</title>
+  <meta name="description" content="Publishing comics related to arctic issues. Bringing forward personal narratives from the north." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f172a;
+      --muted: #4b5563;
+      --accent: #1f7fc2;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --bg: #ffffff;
+      --brand-font: 'Space Grotesk', 'Manrope', system-ui, sans-serif;
+      --body-font: 'Manrope', 'Space Grotesk', system-ui, sans-serif;
+      --radius: 14px;
+      --shadow: 0 16px 28px rgba(15, 23, 42, 0.08);
     }
 
-    .thumbnail-card {
-        padding: 8px;
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body-font);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .thumbnail-card img {
-        width: 100%;
-        height: auto;
-        margin-bottom: 8px;
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
     }
 
-    .thumbnail-label {
-        font-size: 15px;
-        line-height: 1.4;
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 18px;
     }
-}
 
-.thumbnail-label {
-    margin-bottom: 6px;
-}
-.thumbnail-card img {
-    margin-bottom: 0 !important;
-}
-</style>
-<style>
-.thumbnail-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-    padding: 10px;
-}
-
-.thumbnail-card {
-    position: relative;
-    text-align: center;
-    background-color: #111;
-    padding: 5px;
-    border-radius: 8px;
-    transition: transform 0.2s;
-}
-
-.thumbnail-card:hover {
-    transform: scale(1.05);
-    outline: 2px solid white;
-}
-
-.thumbnail-label {
-    color: white;
-    font-size: 14px;
-    margin-top: 4px;
-}
-
-@media (max-width: 768px) {
-    .thumbnail-label {
-        font-size: 12px;
+    .logo {
+      font-family: var(--brand-font);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      font-size: 20px;
+      color: var(--ink);
+      text-transform: uppercase;
     }
-}
-</style></head>
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a, nav button {
+      font-weight: 600;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      color: var(--muted);
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    nav a:hover, nav button:hover {
+      color: var(--ink);
+      background: #f8fafc;
+      border-color: var(--border);
+    }
+
+    .translate-tab {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: #f8fafc;
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: 32px auto 28px;
+      padding: 0 18px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 26px;
+      border-radius: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(30px, 4.8vw, 44px);
+      margin: 4px 0 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: var(--muted);
+    }
+
+    .hero p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 16px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .btn-primary:hover { transform: translateY(-1px); }
+
+    .btn-ghost {
+      background: #f8fafc;
+      color: var(--ink);
+      border-color: var(--border);
+    }
+
+    .hero-visual {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      min-height: 320px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .hero-visual img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 18px 8px;
+    }
+
+    h2 {
+      font-size: clamp(22px, 3vw, 30px);
+      margin: 6px 0 6px;
+      color: var(--ink);
+      letter-spacing: -0.2px;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      max-width: 760px;
+      margin-bottom: 16px;
+      font-size: 15px;
+    }
+
+    .pill-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 10px 0 16px;
+    }
+
+    .pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #f8fafc;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 13px;
+      border: 1px solid var(--border);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      color: var(--ink);
+      border-radius: var(--radius);
+      padding: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.04);
+    }
+
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      letter-spacing: -0.1px;
+    }
+
+    .card p { margin: 0; color: var(--muted); }
+
+    .card small {
+      display: inline-block;
+      margin-top: 6px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: 0.2px;
+    }
+
+    .quote-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .quote {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 14px;
+      border-radius: var(--radius);
+      color: var(--ink);
+    }
+
+    .quote strong { display: block; margin-bottom: 4px; }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .timeline .card { position: relative; overflow: hidden; }
+
+    .faq {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .contact {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      color: var(--ink);
+      margin-top: 8px;
+    }
+
+    .contact .cta-row { margin-top: 10px; }
+
+    .partners {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .partner {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: 12px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 20px 12px 28px;
+      font-size: 14px;
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+    }
+
+    @media (max-width: 720px) {
+      .nav { flex-wrap: wrap; }
+      nav ul { width: 100%; justify-content: flex-start; flex-wrap: wrap; }
+      .hero-card, .hero-visual { border-radius: 16px; }
+    }
+  </style>
+</head>
 <body>
-<div class="thumbnail-container" id="thumbnailContainer">
-<!-- Thumbnails for authors -->
-<div class="thumbnail-card"><div class="thumbnail-label">Breki</div><img alt="Breki" class="thumbnail" onclick="openReader('breki')" src="https://imgur.com/g0glydf.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Elva</div><img alt="Elva" class="thumbnail" onclick="openReader('elva')" src="https://imgur.com/ftutJ2Y.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Embla Eir</div><img alt="Embla Eir" class="thumbnail" onclick="openReader('embla')" src="https://imgur.com/IFMevhF.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Erla</div><img alt="Erla" class="thumbnail" onclick="openReader('erla')" src="https://imgur.com/NlHVGQh.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Guðmundur</div><img alt="Guðmundur" class="thumbnail" onclick="openReader('gudmundur')" src="https://imgur.com/RxuQfAc.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Krummi</div><img alt="Krummi" class="thumbnail" onclick="openReader('krummi')" src="https://imgur.com/ofXJsEy.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Máni</div><img alt="Máni" class="thumbnail" onclick="openReader('mani')" src="https://imgur.com/UerRRiR.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Moira</div><img alt="Moira" class="thumbnail" onclick="openReader('moira')" src="https://imgur.com/PXkxJjL.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Tinna Maren</div><img alt="Tinna Maren" class="thumbnail" onclick="openReader('tinna')" src="https://imgur.com/TRIUGJ5.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Tolli</div><img alt="Tolli" class="thumbnail" onclick="openReader('tolli')" src="https://imgur.com/MkF7Imn.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Vigdís</div><img alt="Vigdís" class="thumbnail" onclick="openReader('vigdís')" src="https://imgur.com/zIpE879.jpeg"/></div>
-<div class="thumbnail-card"><div class="thumbnail-label">Gabríela Rós</div><img alt="Gabríela Rós" class="thumbnail" onclick="openReader('gabríela')" src="https://imgur.com/5Murltx.jpeg"/></div>
-</div>
-<div class="reader-container" id="readerContainer" style="display: none;">
-<button class="exit-reader" onclick="closeReader()">Bréf til heimskautsins</button>
-<div class="page-wrapper" id="readerPages">
-<!-- Pages will load dynamically -->
-</div>
-</div>
-<script>
-        const comicData = {
-            breki: [
-                "https://imgur.com/g0glydf.jpeg",
-                "https://imgur.com/C3ZEjQS.jpeg",
-                "https://imgur.com/cLMlZ9f.jpeg",
-                "https://imgur.com/C4oBGpz.jpeg",
-                "https://imgur.com/TN8DH32.jpeg",
-                "https://imgur.com/06BEWFM.jpeg",
-                "https://imgur.com/In1Bc5G.jpeg",
-                "https://imgur.com/k1jYTFg.jpeg"
-            ],
-            elva: [
-                "https://imgur.com/ftutJ2Y.jpeg",
-                "https://imgur.com/rKF1VFt.jpeg",
-                "https://imgur.com/neQNIVv.jpeg",
-                "https://imgur.com/PuJAGMp.jpeg",
-                "https://imgur.com/fcwERTU.jpeg",
-                "https://imgur.com/CxI13u6.jpeg"
-            ],
-            embla: [
-                "https://imgur.com/IFMevhF.jpeg",
-                "https://imgur.com/dFVUTy4.jpeg",
-                "https://imgur.com/YmSq4T6.jpeg",
-                "https://imgur.com/kJuatY8.jpeg",
-                "https://imgur.com/lrWsGSQ.jpeg",
-                "https://imgur.com/f3ZQBBX.jpeg",
-                "https://imgur.com/Jq8I2qD.jpeg"
-            ],
-            erla: [
-                "https://imgur.com/NlHVGQh.jpeg",
-                "https://imgur.com/oVdbDi8.jpeg",
-                "https://imgur.com/YuGJ6OT.jpeg",
-                "https://imgur.com/IZXu7oJ.jpeg",
-                "https://imgur.com/Idz1urz.jpeg",
-                "https://imgur.com/N05JPhr.jpeg",
-                "https://imgur.com/S1yVkgv.jpeg",
-                "https://imgur.com/9L5JwsQ.jpeg"
-            ],
-            gudmundur: [
-                "https://imgur.com/RxuQfAc.jpeg",
-                "https://imgur.com/xJPLVNP.jpeg",
-                "https://imgur.com/IDFgvkI.jpeg",
-                "https://imgur.com/o6fU4DM.jpeg",
-                "https://imgur.com/g1OP0HQ.jpeg",
-                "https://imgur.com/rGBezr7.jpeg"
-            ],
-            krummi: [
-                "https://imgur.com/ofXJsEy.jpeg",
-                "https://imgur.com/8eBzjoA.jpeg",
-                "https://imgur.com/xazeaV6.jpeg",
-                "https://imgur.com/b62dbBZ.jpeg",
-                "https://imgur.com/Dx0i1nS.jpeg",
-                "https://imgur.com/2YpqUrH.jpeg",
-                "https://imgur.com/S1EuTXV.jpeg",
-                "https://imgur.com/fgshGGW.jpeg"
-            ],
-            mani: [
-                "https://imgur.com/UerRRiR.jpeg",
-                "https://imgur.com/o7m3Ee7.jpeg",
-                "https://imgur.com/2lYkoa6.jpeg",
-                "https://imgur.com/HQLyJ6N.jpeg",
-                "https://imgur.com/VZTdmUF.jpeg",
-                "https://imgur.com/9zzu6XL.jpeg",
-                "https://imgur.com/0ngWJEx.jpeg"
-            ],
-            moira: [
-                "https://imgur.com/PXkxJjL.jpeg",
-                "https://imgur.com/lZl1JSd.jpeg",
-                "https://imgur.com/bOPZ2Lf.jpeg",
-                "https://imgur.com/wjQ0PYY.jpeg",
-                "https://imgur.com/IvbruBX.jpeg"
-            ],
-            tinna: [
-                "https://imgur.com/TRIUGJ5.jpeg",
-                "https://imgur.com/SZllwUv.jpeg",
-                "https://imgur.com/gEHBEmY.jpeg",
-                "https://imgur.com/T4ekEcW.jpeg",
-                "https://imgur.com/enrsj72.jpeg",
-                "https://imgur.com/BeAof7y.jpeg"
-            ],
-            tolli: [
-                "https://imgur.com/MkF7Imn.jpeg",
-                "https://imgur.com/19xfG4h.jpeg",
-                "https://imgur.com/DZ6iBot.jpeg",
-                "https://imgur.com/l3LRmtS.jpeg",
-                "https://imgur.com/8znoGX5.jpeg",
-                "https://imgur.com/9dtVCVY.jpeg"
-            ],
-            vigdís: [
-                "https://imgur.com/zIpE879.jpeg",
-                "https://imgur.com/phL5ApC.jpeg",
-                "https://imgur.com/E7xRre6.jpeg",
-                "https://imgur.com/MRoeVRn.jpeg",
-                "https://imgur.com/zZWuqlO.jpeg",
-                "https://imgur.com/QI5Hfuo.jpeg",
-                "https://imgur.com/HDKTFGS.jpeg",
-                "https://imgur.com/QQp0m6R.jpeg"
-            ],
-            gabríela: [
-                "https://imgur.com/5Murltx.jpeg",
-                "https://imgur.com/EcpXoYc.jpeg",
-                "https://imgur.com/tHrhNe9.jpeg",
-                "https://imgur.com/V7VJKjn.jpeg",
-                "https://imgur.com/Zbl1nx2.jpeg",
-                "https://imgur.com/Q2opaJP.jpeg",
-                "https://imgur.com/SGVzL7L.jpeg",
-                "https://imgur.com/niBVE4L.jpeg"
-            ]
-        };
+  <header>
+    <div class="nav">
+      <div class="logo" data-l10n-key="brand">Arctic Comics Journal</div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a data-l10n-key="nav-about" href="#mission">About</a></li>
+          <li><a data-l10n-key="nav-participate" href="#join">Participate</a></li>
+          <li><a data-l10n-key="nav-workshops" href="#workshops">Workshops</a></li>
+          <li><a href="#faq">?</a></li>
+          <li><a href="mailto:arcticcomicsjournal@gmail.com" aria-label="Email">✉</a></li>
+          <li><button class="translate-tab" id="translateToggle" type="button">Íslenska</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-        function openReader(author) {
-            const readerPages = document.getElementById('readerPages');
-            readerPages.innerHTML = '';
-            comicData[author].forEach((url) => {
-                const img = document.createElement('img');
-                img.src = url;
-                img.alt = `Page from ${author}`;
-                img.className = 'page';
-                readerPages.appendChild(img);
-            });
-            document.getElementById('thumbnailContainer').style.display = 'none';
-            document.getElementById('readerContainer').style.display = 'block';
-        }
+  <div class="hero" id="top">
+    <div class="hero-card">
+      <span class="eyebrow" data-l10n-key="eyebrow">Independent arctic publication</span>
+      <h1 data-l10n-key="hero-title">Arctic issues drawn out</h1>
+      <p data-l10n-key="hero-body">The Arctic Comics Journal fosters new connections between the arctic countries by sharing local perspectives on environmental change and globalization. These comics come straight from the hearts and minds of the people who carry these stories, shedding light on long winters.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" data-l10n-key="cta-primary" href="https://forms.gle/EigPJo86qu69kexM7" target="_blank" rel="noopener">Send in your idea</a>
+        <a class="btn btn-ghost" data-l10n-key="cta-secondary" href="#join">See how to collaborate</a>
+      </div>
+      <div class="pill-row">
+        <span class="pill">Graphic storytelling</span>
+        <span class="pill">Community voices</span>
+        <span class="pill">Across the arctic</span>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <img src="./logo.svg" alt="The Arctic Comics Journal logo" loading="lazy" />
+    </div>
+  </div>
 
-        function closeReader() {
-            document.getElementById('thumbnailContainer').style.display = 'grid';
-            document.getElementById('readerContainer').style.display = 'none';
+  <section id="mission">
+    <h2 data-l10n-key="mission-title">The Arctic Comics Journal</h2>
+    <p class="section-intro" data-l10n-key="mission-body">Creating a platform for conversation and collaboration across arctic and sub-arctic regions. We gather stories from individuals in rural communities and bring them to the forefront of the public eye through comics.</p>
+    <div class="card-grid">
+      <div class="card">
+        <h3 data-l10n-key="drawing-title">Drawing styles</h3>
+        <p data-l10n-key="drawing-body">If your interests lie in drawing or layout, you are perfect for this project. Even if you are looking for inspiration, we can connect you with people and ideas to spark your creations.</p>
+      </div>
+      <div class="card">
+        <h3 data-l10n-key="story-title">Storytelling</h3>
+        <p data-l10n-key="story-body">Writing, singing, doodling or simply talking can inspire others. We offer a space for collaboration and conversation about life in the north and what it means to each of us.</p>
+      </div>
+      <div class="card">
+        <h3 data-l10n-key="insp-title">Inspiration</h3>
+        <p data-l10n-key="insp-body">Any suggestion is welcome. Sharing climate realities, communal victories, and challenges opens a window for ourselves and our neighbours on what matters most.</p>
+      </div>
+    </div>
+    <div class="quote-grid" style="margin-top:20px;">
+      <div class="quote">
+        <strong data-l10n-key="quote1-title">We are about</strong>
+        <span data-l10n-key="quote1-body">Promoting voices of young people across the arctic, no matter background.</span>
+      </div>
+      <div class="quote">
+        <strong data-l10n-key="quote2-title">To achieve</strong>
+        <span data-l10n-key="quote2-body">Collaboration between arctic countries through storytelling.</span>
+      </div>
+      <div class="quote">
+        <strong data-l10n-key="quote3-title">We invite you</strong>
+        <span data-l10n-key="quote3-body">To co-create comics, songs, poems, and visuals that spark dialogue.</span>
+      </div>
+      <div class="quote">
+        <strong data-l10n-key="quote4-title">So that we can</strong>
+        <span data-l10n-key="quote4-body">Share local perspectives, strengthen community ties, and imagine better futures.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="join">
+    <h2 data-l10n-key="join-title">Join the project</h2>
+    <p class="section-intro" data-l10n-key="join-body">The creative process opens new paths to long-standing questions. Everyone can participate by expressing their voice; together we enrich public awareness.</p>
+    <div class="card-grid">
+      <div class="card">
+        <h3 data-l10n-key="pitch-title">Pitch your idea</h3>
+        <p data-l10n-key="pitch-body">Send concepts, sketches or full stories. Comics can be 1–10 pages or even a single song, poem, or thought.</p>
+        <small data-l10n-key="pitch-meta">Deadline: May 1 for the current print cycle</small>
+      </div>
+      <div class="card">
+        <h3 data-l10n-key="pair-title">Get paired up</h3>
+        <p data-l10n-key="pair-body">We help connect you with writers, illustrators, and advisors to shape your narrative and craft.</p>
+        <small data-l10n-key="pair-meta">Guidance & technical tips available</small>
+      </div>
+      <div class="card">
+        <h3 data-l10n-key="publish-title">Publish together</h3>
+        <p data-l10n-key="publish-body">Finished comics are published in the Arctic Comics Journal to spark discussion across the region.</p>
+        <small data-l10n-key="publish-meta">Print & digital editions</small>
+      </div>
+    </div>
+  </section>
+
+  <section id="workshops">
+    <h2 data-l10n-key="workshops-title">Workshops</h2>
+    <p class="section-intro" data-l10n-key="workshops-body">Our workshops deepen ideas and create space for connection by bringing various discussions and methods to the table.</p>
+    <div class="timeline">
+      <div class="card">
+        <h3 data-l10n-key="iceland-title">Iceland · Reykjavík</h3>
+        <p data-l10n-key="iceland-body">12 January — Hafnar.haus creative community, Tryggvagata 17</p>
+      </div>
+      <div class="card">
+        <h3 data-l10n-key="finland-title">Finland · Oulu & Helsinki</h3>
+        <p data-l10n-key="finland-body">Fall 2026 — TBA</p>
+      </div>
+      <div class="card">
+        <h3 data-l10n-key="greenland-title">Greenland · Nuuk & Narsaq</h3>
+        <p data-l10n-key="greenland-body">Fall 2026 — TBA</p>
+      </div>
+      <div class="card">
+        <h3 data-l10n-key="faroe-title">Faroe Islands</h3>
+        <p data-l10n-key="faroe-body">TBA</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2 data-l10n-key="faq-title">FAQ</h2>
+    <div class="faq">
+      <div class="card">
+        <h3 data-l10n-key="faq1-title">How do I send in my idea?</h3>
+        <p data-l10n-key="faq1-body">Submit through our form or via e-mail. Rough sketches and short descriptions are welcome.</p>
+      </div>
+      <div class="card">
+        <h3 data-l10n-key="faq2-title">What are the requirements?</h3>
+        <p data-l10n-key="faq2-body">A comic from 1–10 pages, or snippets of your story, song, image, poem, or thought that we can adapt.</p>
+      </div>
+      <div class="card">
+        <h3 data-l10n-key="faq3-title">I don't know if my idea is good?</h3>
+        <p data-l10n-key="faq3-body">All ideas are good. We can help shape them so they become clear and compelling.</p>
+      </div>
+      <div class="card">
+        <h3 data-l10n-key="faq4-title">How can you help me?</h3>
+        <p data-l10n-key="faq4-body">We provide connections, technical advice, and collaborative partners to develop your work.</p>
+      </div>
+      <div class="card">
+        <h3 data-l10n-key="faq5-title">When is the deadline?</h3>
+        <p data-l10n-key="faq5-body">For the current print edition, send material before May 1. We accept projects year-round for future issues.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact">
+      <h2 data-l10n-key="contact-title">Something to talk about?</h2>
+      <p data-l10n-key="contact-body">If you have questions about matters of the arctic, workshops or ideas to send in, contact us.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" data-l10n-key="contact-cta" href="https://forms.gle/EigPJo86qu69kexM7" target="_blank" rel="noopener">Send in your idea</a>
+        <a class="btn btn-ghost" href="mailto:arcticcomicsjournal@gmail.com">arcticcomicsjournal@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Partners & supporters">
+    <h2 data-l10n-key="partners-title">Partners</h2>
+    <p class="section-intro" data-l10n-key="partners-body">Collaborating institutions and contributors across the Nordic region.</p>
+    <div class="partners">
+      <div class="partner">Sermersooq · Based in Nuuk</div>
+      <div class="partner">Lilja Björg Jökulsdóttir- National Park Ranger</div>
+      <div class="partner">Oulu Comics · Based in Oulu</div>
+      <div class="partner">The Finnish Comics Society · Based in Helsinki</div>
+      <div class="partner">Kommune Kujalleq · Based in Narsaq</div>
+      <div class="partner">Nordic Culture Point</div>
+    </div>
+  </section>
+
+  <footer>
+    The Arctic Comics Journal © All Rights Reserved
+  </footer>
+
+  <script>
+    const translations = {
+      is: {
+        'nav-about': 'Um',
+        'nav-participate': 'Taka þátt',
+        'nav-workshops': 'Smiðjur',
+        'eyebrow': 'Sjálfstætt norðurslóða tímarit',
+        'hero-title': 'Norðurslóða málefni teiknuð fram',
+        'hero-body': 'Arctic Comics Journal tengir saman norðurslóða lönd með því að deila staðbundnum sjónarhornum á loftslagsbreytingar og hnattvæðingu. Sögurnar koma beint frá fólkinu sem ber þær, og lýsa upp dimma vetur.',
+        'cta-primary': 'Senda inn hugmynd',
+        'cta-secondary': 'Sjá hvernig má vinna saman',
+        'mission-title': 'The Arctic Comics Journal',
+        'mission-body': 'Við búum til vettvang fyrir samtal og samvinnu á norðurslóðum. Við safnum sögum frá fólki í dreifbýli og færum þær í brennidepil með teiknimyndasögum.',
+        'drawing-title': 'Teiknistílar',
+        'drawing-body': 'Ef þú hefur áhuga á teikningu eða uppsetningu ert þú fullkominn í verkefnið. Við tengjum þig við fólk og hugmyndir sem kveikja sköpun.',
+        'story-title': 'Sögur',
+        'story-body': 'Skrif, söngur, krass eða einfaldlega samtal geta hvatt aðra. Hér er rými til samvinnu og samtals um lífið á norðurslóðum.',
+        'insp-title': 'Innlífsmyndir',
+        'insp-body': 'Allar ábendingar eru velkomnar. Að deila loftslagsveruleika, sigrum og áskorunum opnar glugga um hvað skiptir máli.',
+        'join-title': 'Taktu þátt',
+        'join-body': 'Sköpunarferlið opnar nýjar leiðir að gömlum spurningum. Allir geta lagt sitt af mörkum með eigin rödd.',
+        'pitch-title': 'Sendu inn hugmynd',
+        'pitch-body': 'Sendu inn hugmyndir, skissu eða fullar sögur. Sögur geta verið 1–10 síður eða jafnvel stök hugsun eða ljóð.',
+        'pitch-meta': 'Frestur: 1. maí fyrir núverandi prentun',
+        'pair-title': 'Fáðu teymi',
+        'pair-body': 'Við tengjum þig við höfunda, teiknara og ráðgjafa til að móta frásögnina.',
+        'pair-meta': 'Leiðbeiningar og tækniráð',
+        'publish-title': 'Gefa út saman',
+        'publish-body': 'Fullunnar sögur fara í Arctic Comics Journal til að skapa umræðu um svæðið.',
+        'publish-meta': 'Prent og stafrænt',
+        'workshops-title': 'Smiðjur',
+        'workshops-body': 'Smiðjurnar dýpka hugmyndir og skapa tengsl með aðferðum og umræðum.',
+        'iceland-title': 'Ísland · Reykjavík',
+        'iceland-body': '12. janúar — Hafnar.haus creative community, Tryggvagata 17',
+        'finland-title': 'Finnland · Oulu & Helsinki',
+        'finland-body': 'Haust 2025 — tilkynnt síðar',
+        'greenland-title': 'Grænland · Nuuk & Narsaq',
+        'greenland-body': 'Haust 2025 — tilkynnt síðar',
+        'faroe-title': 'Færeyjar',
+        'faroe-body': 'Tilkynnt síðar',
+        'faq-title': 'Algengar spurningar',
+        'faq1-title': 'Hvernig sendi ég inn hugmynd?',
+        'faq1-body': 'Sendu inn í gegnum eyðublað eða tölvupóst. Skissur og stutt lýsing duga.',
+        'faq2-title': 'Hverjar eru kröfurnar?',
+        'faq2-body': 'Teiknimyndasaga á 1–10 síðum, eða brot af hugmynd, söng, mynd eða ljóði sem við aðlögum.',
+        'faq3-title': 'Er hugmyndin mín nógu góð?',
+        'faq3-body': 'Allar hugmyndir eru góðar. Við hjálpum til við að móta þær svo þær verði skýrar og heillandi.',
+        'faq4-title': 'Hvernig getið þið hjálpað?',
+        'faq4-body': 'Við bjóðum tengingar, tækniráð og samstarfsaðila til að þróa verkið.',
+        'faq5-title': 'Hvenær er skilafrestur?',
+        'faq5-body': 'Fyrir prentútgáfu: fyrir 1. maí. Við tökum á móti verkefnum allt árið fyrir næstu útgáfur.',
+        'contact-title': 'Eitthvað sem þú vilt ræða um?',
+        'contact-body': 'Ef þú ert með spurningar um málefni norðurslóða, smiðjur eða hugmyndir til að senda inn endilega hafðu samband.',
+        'contact-cta': 'Senda inn hugmynd',
+        'partners-title': 'Samstarfsaðilar',
+        'partners-body': 'Samstarf stofnana og þátttakenda víðs vegar um Norðurlönd.',
+        'quote1-title': 'Við viljum',
+        'quote1-body': 'Að lyfta röddum ungs fólks á norðurslóðum, óháð bakgrunni.',
+        'quote2-title': 'Til að ná fram',
+        'quote2-body': 'Samstarfi milli norðurslóða landa í gegnum frásögn.',
+        'quote3-title': 'Við bjóðum þér',
+        'quote3-body': 'Að skapa með okkur sögur, lög, ljóð og myndir sem kveikja samtal.',
+        'quote4-title': 'Til þess að',
+        'quote4-body': 'Deila staðbundnum sjónarhornum, styrkja tengsl og ímynda okkur betri framtíð.'
+      }
+    };
+
+    const toggleBtn = document.getElementById('translateToggle');
+    let currentLang = 'en';
+
+    toggleBtn.addEventListener('click', () => {
+      currentLang = currentLang === 'en' ? 'is' : 'en';
+      toggleBtn.textContent = currentLang === 'en' ? 'Íslenska' : 'English';
+      applyTranslations();
+    });
+
+    function applyTranslations() {
+      if (currentLang === 'en') {
+        document.querySelectorAll('[data-l10n-key]').forEach(el => {
+          el.textContent = el.dataset.defaultText || el.textContent;
+        });
+        return;
+      }
+      document.querySelectorAll('[data-l10n-key]').forEach(el => {
+        const key = el.getAttribute('data-l10n-key');
+        if (!el.dataset.defaultText) {
+          el.dataset.defaultText = el.textContent;
         }
-    </script>
+        const value = translations.is[key];
+        if (value) { el.textContent = value; }
+      });
+    }
+  </script>
 </body>
 </html>
