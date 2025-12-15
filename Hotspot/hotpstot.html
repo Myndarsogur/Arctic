@@ -1,0 +1,203 @@
+<html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Bréf frá heimskautinu - The Arctic Comics Journal</title> <style> body { margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #000; color: #fff; height: 100vh; display: flex; flex-direction: column; }
+.thumbnail-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Three columns */
+        grid-auto-rows: calc((100vh - 10px) / 4); /* Four rows */
+        gap: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    .thumbnail {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        aspect-ratio: 210 / 297; /* A4 aspect ratio */
+        cursor: pointer;
+        border: none;
+    }
+
+    .thumbnail:hover {
+        transform: scale(1.02);
+        z-index: 1;
+    }
+
+    .reader-container {
+        display: block;
+        width: 100%;
+        background-color: #121212;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    .page-wrapper {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .page {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        background-color: #fff;
+        border: 1px solid #333;
+    }
+
+    .exit-reader {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #000;
+        padding: 5px 10px;
+        font-size: 14px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .exit-reader:hover {
+        background-color: rgba(255, 255, 255, 1);
+    }
+
+</style>
+
+</head> <body> <div class="thumbnail-container" id="thumbnailContainer"> <!-- Thumbnails for authors --> <img class="thumbnail" src="https://imgur.com/g0glydf.jpeg" alt="Breki" onclick="openReader('breki')"> <img class="thumbnail" src="https://imgur.com/ftutJ2Y.jpeg" alt="Elva" onclick="openReader('elva')"> <img class="thumbnail" src="https://imgur.com/IFMevhF.jpeg" alt="Embla Eir" onclick="openReader('embla')"> <img class="thumbnail" src="https://imgur.com/NlHVGQh.jpeg" alt="Erla" onclick="openReader('erla')"> <img class="thumbnail" src="https://imgur.com/RxuQfAc.jpeg" alt="Guðmundur" onclick="openReader('gudmundur')"> <img class="thumbnail" src="https://imgur.com/ofXJsEy.jpeg" alt="Krummi" onclick="openReader('krummi')"> <img class="thumbnail" src="https://imgur.com/UerRRiR.jpeg" alt="Máni" onclick="openReader('mani')"> <img class="thumbnail" src="https://imgur.com/PXkxJjL.jpeg" alt="Moira" onclick="openReader('moira')"> <img class="thumbnail" src="https://imgur.com/TRIUGJ5.jpeg" alt="Tinna Maren" onclick="openReader('tinna')"> <img class="thumbnail" src="https://imgur.com/MkF7Imn.jpeg" alt="Tolli" onclick="openReader('tolli')"> <img class="thumbnail" src="https://imgur.com/zIpE879.jpeg" alt="Vigdís" onclick="openReader('vigdís')"> <img class="thumbnail" src="https://imgur.com/5Murltx.jpeg" alt="Gabríela Rós" onclick="openReader('gabríela')"> </div>
+    <div class="reader-container" id="readerContainer" style="display: none;">
+        <button class="exit-reader" onclick="closeReader()">Bréf til heimskautsins</button>
+        <div class="page-wrapper" id="readerPages">
+            <!-- Pages will load dynamically -->
+        </div>
+    </div>
+    <script>
+        const comicData = {
+            breki: [
+                "https://imgur.com/g0glydf.jpeg",
+                "https://imgur.com/C3ZEjQS.jpeg",
+                "https://imgur.com/cLMlZ9f.jpeg",
+                "https://imgur.com/C4oBGpz.jpeg",
+                "https://imgur.com/TN8DH32.jpeg",
+                "https://imgur.com/06BEWFM.jpeg",
+                "https://imgur.com/In1Bc5G.jpeg",
+                "https://imgur.com/k1jYTFg.jpeg"
+            ],
+            elva: [
+                "https://imgur.com/ftutJ2Y.jpeg",
+                "https://imgur.com/rKF1VFt.jpeg",
+                "https://imgur.com/neQNIVv.jpeg",
+                "https://imgur.com/PuJAGMp.jpeg",
+                "https://imgur.com/fcwERTU.jpeg",
+                "https://imgur.com/CxI13u6.jpeg"
+            ],
+            embla: [
+                "https://imgur.com/IFMevhF.jpeg",
+                "https://imgur.com/dFVUTy4.jpeg",
+                "https://imgur.com/YmSq4T6.jpeg",
+                "https://imgur.com/kJuatY8.jpeg",
+                "https://imgur.com/lrWsGSQ.jpeg",
+                "https://imgur.com/f3ZQBBX.jpeg",
+                "https://imgur.com/Jq8I2qD.jpeg"
+            ],
+            erla: [
+                "https://imgur.com/NlHVGQh.jpeg",
+                "https://imgur.com/oVdbDi8.jpeg",
+                "https://imgur.com/YuGJ6OT.jpeg",
+                "https://imgur.com/IZXu7oJ.jpeg",
+                "https://imgur.com/Idz1urz.jpeg",
+                "https://imgur.com/N05JPhr.jpeg",
+                "https://imgur.com/S1yVkgv.jpeg",
+                "https://imgur.com/9L5JwsQ.jpeg"
+            ],
+            gudmundur: [
+                "https://imgur.com/RxuQfAc.jpeg",
+                "https://imgur.com/xJPLVNP.jpeg",
+                "https://imgur.com/IDFgvkI.jpeg",
+                "https://imgur.com/o6fU4DM.jpeg",
+                "https://imgur.com/g1OP0HQ.jpeg",
+                "https://imgur.com/rGBezr7.jpeg"
+            ],
+            krummi: [
+                "https://imgur.com/ofXJsEy.jpeg",
+                "https://imgur.com/8eBzjoA.jpeg",
+                "https://imgur.com/xazeaV6.jpeg",
+                "https://imgur.com/b62dbBZ.jpeg",
+                "https://imgur.com/Dx0i1nS.jpeg",
+                "https://imgur.com/2YpqUrH.jpeg",
+                "https://imgur.com/S1EuTXV.jpeg",
+                "https://imgur.com/fgshGGW.jpeg"
+            ],
+            mani: [
+                "https://imgur.com/UerRRiR.jpeg",
+                "https://imgur.com/o7m3Ee7.jpeg",
+                "https://imgur.com/2lYkoa6.jpeg",
+                "https://imgur.com/HQLyJ6N.jpeg",
+                "https://imgur.com/VZTdmUF.jpeg",
+                "https://imgur.com/9zzu6XL.jpeg",
+                "https://imgur.com/0ngWJEx.jpeg"
+            ],
+            moira: [
+                "https://imgur.com/PXkxJjL.jpeg",
+                "https://imgur.com/lZl1JSd.jpeg",
+                "https://imgur.com/bOPZ2Lf.jpeg",
+                "https://imgur.com/wjQ0PYY.jpeg",
+                "https://imgur.com/IvbruBX.jpeg"
+            ],
+            tinna: [
+                "https://imgur.com/TRIUGJ5.jpeg",
+                "https://imgur.com/SZllwUv.jpeg",
+                "https://imgur.com/gEHBEmY.jpeg",
+                "https://imgur.com/T4ekEcW.jpeg",
+                "https://imgur.com/enrsj72.jpeg",
+                "https://imgur.com/BeAof7y.jpeg"
+            ],
+            tolli: [
+                "https://imgur.com/MkF7Imn.jpeg",
+                "https://imgur.com/19xfG4h.jpeg",
+                "https://imgur.com/DZ6iBot.jpeg",
+                "https://imgur.com/l3LRmtS.jpeg",
+                "https://imgur.com/8znoGX5.jpeg",
+                "https://imgur.com/9dtVCVY.jpeg"
+            ],
+            vigdís: [
+                "https://imgur.com/zIpE879.jpeg",
+                "https://imgur.com/phL5ApC.jpeg",
+                "https://imgur.com/E7xRre6.jpeg",
+                "https://imgur.com/MRoeVRn.jpeg",
+                "https://imgur.com/zZWuqlO.jpeg",
+                "https://imgur.com/QI5Hfuo.jpeg",
+                "https://imgur.com/HDKTFGS.jpeg",
+                "https://imgur.com/QQp0m6R.jpeg"
+            ],
+            gabríela: [
+                "https://imgur.com/5Murltx.jpeg",
+                "https://imgur.com/EcpXoYc.jpeg",
+                "https://imgur.com/tHrhNe9.jpeg",
+                "https://imgur.com/V7VJKjn.jpeg",
+                "https://imgur.com/Zbl1nx2.jpeg",
+                "https://imgur.com/Q2opaJP.jpeg",
+                "https://imgur.com/SGVzL7L.jpeg",
+                "https://imgur.com/niBVE4L.jpeg"
+            ]
+        };
+        function openReader(author) {
+            const readerPages = document.getElementById('readerPages');
+            readerPages.innerHTML = '';
+            comicData[author].forEach((url) => {
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = `Page from ${author}`;
+                img.className = 'page';
+                readerPages.appendChild(img);
+            });
+            document.getElementById('thumbnailContainer').style.display = 'none';
+            document.getElementById('readerContainer').style.display = 'block';
+        }
+        function closeReader() {
+            document.getElementById('thumbnailContainer').style.display = 'grid';
+            document.getElementById('readerContainer').style.display = 'none';
+        }
+    </script>
+    </body> </html>

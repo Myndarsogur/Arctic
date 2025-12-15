@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pappírskort með 3D áhrifum</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="map-container">
+    <!-- Mynd af kortinu (t.d. pappírslík kortamynd) -->
+    <img src="https://islandskort.is/iiif/2/6401/full/3495,/0/default.jpg" alt="Kort" class="map-image" />
+
+    <!DOCTYPE html>
+    <html lang="is">
+    <head>
+      <meta charset="UTF-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Pappírskort með Babylon.js</title>
+      <!-- Tenging í Babylon.js frá CDN -->
+      <script src="https://cdn.babylonjs.com/babylon.js"></script>
+      <!-- Event tól til að meðhöndla "GUI" ef vill -->
+      <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
+      <!-- Ef þú vilt notast við `es6` CDN (nyrri útgáfur) geturðu prófað:
+           <script type="module" src="https://unpkg.com/babylonjs@6.0.0/babylon.js"></script>
+      -->
+      <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+      <canvas id="renderCanvas" touch-action="none" style="width: 100%; height: 100vh;"></canvas>
+    
+      <!-- Modal gluggi fyrir efni sem birtist eftir smell -->
+      <div id="info-modal" class="info-modal">
+        <div id="info-content" class="info-content">
+          <!-- Hér kemur efnið (texti, mynd, myndband) -->
+        </div>
+        <button id="close-btn" class="close-btn">&times;</button>
+      </div>
+    
+      <script src="script.js"></script>
+    </body>
+    </html>
+    

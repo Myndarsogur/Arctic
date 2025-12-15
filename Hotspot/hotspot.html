@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kort + Hotspots + Lesari</title>
+  <!-- Babylon.js -->
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
+  <style>
+    html, body {
+      margin: 0; 
+      padding: 0; 
+      overflow: hidden; 
+      height: 100%; 
+      font-family: sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+    #renderCanvas {
+      width: 100%; 
+      height: 100%; 
+      touch-action: none;
+      display: block;
+    }
+
+    /* Lesari (reader) stillingar */
+    .reader-container {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      z-index: 9999; /* Ofar öllu */
+      flex-direction: column;
+      overflow-y: auto; 
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="renderCanvas"></canvas>
+
+  <!-- Lesari (reader) -->
+  <div class="reader-container" id="reader-container">
+    <button id="close-reader" style="position: absolute; top: 10px; right: 10px;">Loka</button>
+    <div id="reader-content">
+      <!-- Innihald lesarans -->
+    </div>
+  </div>
+
+  <script>
+    // Setja upp Babylon.js vettvanginn
+    const canvas = document.getElementById('renderCanvas');
+    const engine = new BABYLON.Engine(canvas, true);
+
+    const createScene = () => {
+      const scene = new BABYLON.Scene(engine);
+
+      // Bæta við ljós
+      const light = new BABYLON.HemisphericLight('light', new BABYLON.Vector3(0, 1, 0), scene);
+      light.intensity = 0.7;
+
+      // Bæta við mynd sem plan
+      const plane = BABYLON.MeshBuilder.CreatePlane('plane', {width: 10, height: 10}, scene);
+      const material = new BABYLON.StandardMaterial('material', scene);
+      material.diffuseTexture = new BABYLON.Texture('https://upload.wikimedia.org/wikipedia/commons/9/9d/Arctic_Ocean_relief_location_map.png', scene);
+      plane.material = material;
+
+      // Bæta við ArcRotateCamera
+      const camera = new BABYLON.ArcRotateCamera('camera', Math.PI / 2, Math.PI / 2, 20, BABYLON.Vector3.Zero(), scene);
+      camera.attachControl(canvas, true);
+
+      return scene;
+    };
+
+    const scene = createScene();
+
+    engine.runRenderLoop(() => {
+      scene.render();
+    });
+
+    window.addEventListener('resize', () => {
+      engine.resize();
+    });
+
+    // Lesari (reader) virkni
+    const readerContainer = document.getElementById('reader-container');
+    const closeReader = document.getElementById('close-reader');
+
+    closeReader.addEventListener('click', () => {
+      readerContainer.style.display = 'none';
+    });
+
+    // Bæta við event listener fyrir smell á kortið
+    canvas.addEventListener('click', () => {
+      readerContainer.style.display = 'flex';
+      document.getElementById('reader-content').innerHTML = '<p>Innihald lesarans</p>';
+    });
+  </script>
+</body>
+</html>

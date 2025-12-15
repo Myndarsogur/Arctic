@@ -1,0 +1,112 @@
+// script.js
+
+/**********************
+ * 1. Grunnbreytur og Engine
+ **********************/
+const canvas = document.getElementById("renderCanvas");
+const engine = new BABYLON.Engine(canvas, true);
+
+/**********************
+ * 2. Búa til Scene
+ **********************/
+const createScene = () => {
+  const scene = new BABYLON.Scene(engine);
+
+  // Setjum upp einfalt umhverfisljós
+  scene.clearColor = new BABYLON.Color4(0.9, 0.9, 0.85, 1.0);
+
+  // Kamera sem leyfir notanda að snúa kortinu
+  const camera = new BABYLON.ArcRotateCamera(
+    "camera",
+    Math.PI / 2,       // alpha
+    BABYLON.Tools.ToRadians(70), // beta, hversu mikið ofan frá
+    5,                 // radius (fjarlægð)
+    BABYLON.Vector3.Zero(), // focus á (0,0,0)
+    scene
+  );
+  camera.attachControl(canvas, true);
+
+  // Ljós
+  const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 2, 0), scene);
+  light.intensity = 1;
+
+  // Valkvætt: Bæta við directional light til að fá skýran skugga
+  // const directionalLight = new BABYLON.DirectionalLight("dirLight", new BABYLON.Vector3(-1, -2, -1), scene);
+  // directionalLight.intensity = 0.5;
+
+  /**********************
+   * 3. Plan (Pappírskort)
+   **********************/
+  // Búum til plane sem inniheldur kortatextúru
+  const mapPlane = BABYLON.MeshBuilder.CreatePlane("mapPlane", { width: 4, height: 2.5 }, scene);
+  // Smá tilting ef við viljum
+  mapPlane.rotation.x = BABYLON.Tools.ToRadians(-90);
+  mapPlane.position.y = 0; // x=0, y=0, z=0 => á jörðu
+
+  // Textúra
+  const mapMaterial = new BABYLON.StandardMaterial("mapMat", scene);
+  const mapTexture = new BABYLON.Texture("ttps://islandskort.is/iiif/2/6401/full/3495,/0/default.jpg", scene); // Nota þína eigin mynd
+  mapMaterial.diffuseTexture = mapTexture;
+
+  // Pappírslík lýsing – lækkum specular
+  mapMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+  mapPlane.material = mapMaterial;
+
+  /**********************
+   * 4. Smelltap (pointer pick)
+   **********************/
+  // Hér gætir þú bætt við Meshes fyrir „hotspots“, en í grunndæminu
+  // smellum við bara á plane-ið og birtum modal.
+  scene.onPointerObservable.add((pointerInfo) => {
+    switch (pointerInfo.type) {
+      case BABYLON.PointerEventTypes.POINTERDOWN:
+        if (pointerInfo.pickInfo.hit && pointerInfo.pickInfo.pickedMesh === mapPlane) {
+          // Sýna modal glugga
+          showModal("Þú smelltir á kortið!", "<p>Hér gæti verið saga, mynd, myndband eða annað efni.</p>");
+        }
+        break;
+    }
+  });
+
+  return scene;
+};
+
+// Kveikjum á senunni
+const scene = createScene();
+
+/**********************
+ * 5. Keyrsla
+ **********************/
+engine.runRenderLoop(() => {
+  scene.render();
+});
+
+// Látum gluggann endurstillast ef stærð breytist
+window.addEventListener("resize", () => {
+  engine.resize();
+});
+
+/**********************
+ * 6. Modal virkni
+ **********************/
+const infoModal = document.getElementById("info-modal");
+const infoContent = document.getElementById("info-content");
+const closeBtn = document.getElementById("close-btn");
+
+function showModal(title, htmlContent) {
+  infoContent.innerHTML = `
+    <h2>${title}</h2>
+    ${htmlContent}
+  `;
+  infoModal.style.display = "flex";
+}
+
+closeBtn.addEventListener("click", () => {
+  infoModal.style.display = "none";
+});
+
+infoModal.addEventListener("click", (e) => {
+  if (e.target === infoModal) {
+    infoModal.style.display = "none";
+  }
+});

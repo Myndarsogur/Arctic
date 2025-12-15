@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smooth Card Viewer</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: white;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card-container {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 20px;
+            scroll-behavior: smooth;
+            align-items: center;
+            height: 300px;
+        }
+
+        .card-container::-webkit-scrollbar {
+            display: none; /* Fjarlægir skrunstiku í Chrome/Safari */
+        }
+
+        .card {
+            flex: 0 0 auto;
+            width: 150px;
+            height: 225px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.6);
+        }
+
+        .reader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .reader-container img {
+            max-width: 90%;
+            max-height: 90%;
+            margin: 10px;
+            border-radius: 8px;
+        }
+
+        .exit-reader {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #111;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .exit-reader:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container" id="cardContainer">
+        <!-- Cards verða settar hér -->
+    </div>
+
+    <div class="reader-container" id="readerContainer">
+        <button class="exit-reader" onclick="closeReader()">Close</button>
+        <div id="readerPages"></div>
+    </div>
+
+    <script>
+        const comicData = {
+            breki: [
+                "https://imgur.com/g0glydf.jpeg",
+                "https://imgur.com/C3ZEjQS.jpeg",
+                "https://imgur.com/cLMlZ9f.jpeg",
+                "https://imgur.com/C4oBGpz.jpeg",
+                "https://imgur.com/TN8DH32.jpeg",
+                "https://imgur.com/06BEWFM.jpeg",
+                "https://imgur.com/In1Bc5G.jpeg",
+                "https://imgur.com/k1jYTFg.jpeg"
+            ],
+            elva: [
+                "https://imgur.com/ftutJ2Y.jpeg",
+                "https://imgur.com/rKF1VFt.jpeg",
+                "https://imgur.com/neQNIVv.jpeg",
+                "https://imgur.com/PuJAGMp.jpeg",
+                "https://imgur.com/fcwERTU.jpeg",
+                "https://imgur.com/CxI13u6.jpeg"
+            ],
+            embla: [
+                "https://imgur.com/IFMevhF.jpeg",
+                "https://imgur.com/dFVUTy4.jpeg",
+                "https://imgur.com/YmSq4T6.jpeg",
+                "https://imgur.com/kJuatY8.jpeg",
+                "https://imgur.com/lrWsGSQ.jpeg",
+                "https://imgur.com/f3ZQBBX.jpeg",
+                "https://imgur.com/Jq8I2qD.jpeg"
+            ],
+            erla: [
+                "https://imgur.com/NlHVGQh.jpeg",
+                "https://imgur.com/oVdbDi8.jpeg",
+                "https://imgur.com/YuGJ6OT.jpeg",
+                "https://imgur.com/IZXu7oJ.jpeg",
+                "https://imgur.com/Idz1urz.jpeg",
+                "https://imgur.com/N05JPhr.jpeg",
+                "https://imgur.com/S1yVkgv.jpeg",
+                "https://imgur.com/9L5JwsQ.jpeg"
+            ],
+            gudmundur: [
+                "https://imgur.com/RxuQfAc.jpeg",
+                "https://imgur.com/xJPLVNP.jpeg",
+                "https://imgur.com/IDFgvkI.jpeg",
+                "https://imgur.com/o6fU4DM.jpeg",
+                "https://imgur.com/g1OP0HQ.jpeg",
+                "https://imgur.com/rGBezr7.jpeg"
+            ],
+            krummi: [
+                "https://imgur.com/ofXJsEy.jpeg",
+                "https://imgur.com/8eBzjoA.jpeg",
+                "https://imgur.com/xazeaV6.jpeg",
+                "https://imgur.com/b62dbBZ.jpeg",
+                "https://imgur.com/Dx0i1nS.jpeg",
+                "https://imgur.com/2YpqUrH.jpeg",
+                "https://imgur.com/S1EuTXV.jpeg",
+                "https://imgur.com/fgshGGW.jpeg"
+            ],
+            mani: [
+                "https://imgur.com/UerRRiR.jpeg",
+                "https://imgur.com/o7m3Ee7.jpeg",
+                "https://imgur.com/2lYkoa6.jpeg",
+                "https://imgur.com/HQLyJ6N.jpeg",
+                "https://imgur.com/VZTdmUF.jpeg",
+                "https://imgur.com/9zzu6XL.jpeg",
+                "https://imgur.com/0ngWJEx.jpeg"
+            ],
+            moira: [
+                "https://imgur.com/PXkxJjL.jpeg",
+                "https://imgur.com/lZl1JSd.jpeg",
+                "https://imgur.com/bOPZ2Lf.jpeg",
+                "https://imgur.com/wjQ0PYY.jpeg",
+                "https://imgur.com/IvbruBX.jpeg"
+            ],
+            tinna: [
+                "https://imgur.com/TRIUGJ5.jpeg",
+                "https://imgur.com/SZllwUv.jpeg",
+                "https://imgur.com/gEHBEmY.jpeg",
+                "https://imgur.com/T4ekEcW.jpeg",
+                "https://imgur.com/enrsj72.jpeg",
+                "https://imgur.com/BeAof7y.jpeg"
+            ],
+            tolli: [
+                "https://imgur.com/MkF7Imn.jpeg",
+                "https://imgur.com/19xfG4h.jpeg",
+                "https://imgur.com/DZ6iBot.jpeg",
+                "https://imgur.com/l3LRmtS.jpeg",
+                "https://imgur.com/8znoGX5.jpeg",
+                "https://imgur.com/9dtVCVY.jpeg"
+            ],
+            vigdís: [
+                "https://imgur.com/zIpE879.jpeg",
+                "https://imgur.com/phL5ApC.jpeg",
+                "https://imgur.com/E7xRre6.jpeg",
+                "https://imgur.com/MRoeVRn.jpeg",
+                "https://imgur.com/zZWuqlO.jpeg",
+                "https://imgur.com/QI5Hfuo.jpeg",
+                "https://imgur.com/HDKTFGS.jpeg",
+                "https://imgur.com/QQp0m6R.jpeg"
+            ],
+            gabríela: [
+                "https://imgur.com/5Murltx.jpeg",
+                "https://imgur.com/EcpXoYc.jpeg",
+                "https://imgur.com/tHrhNe9.jpeg",
+                "https://imgur.com/V7VJKjn.jpeg",
+                "https://imgur.com/Zbl1nx2.jpeg",
+                "https://imgur.com/Q2opaJP.jpeg",
+                "https://imgur.com/SGVzL7L.jpeg",
+                "https://imgur.com/niBVE4L.jpeg"
+            ]
+        };
+
+        const cardContainer = document.getElementById('cardContainer');
+        const readerContainer = document.getElementById('readerContainer');
+        const readerPages = document.getElementById('readerPages');
+
+        // Setur upp spil með myndum
+        Object.keys(comicData).forEach(author => {
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const img = document.createElement('img');
+            img.src = comicData[author][0]; // Fyrsta myndin sem forsíða
+            img.alt = author;
+            card.appendChild(img);
+
+            card.onclick = () => openReader(author);
+
+            cardContainer.appendChild(card);
+        });
+
+        // Opna lesarann
+        function openReader(author) {
+            readerPages.innerHTML = '';
+            comicData[author].forEach(url => {
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = `Page from ${author}`;
+                readerPages.appendChild(img);
+            });
+            readerContainer.style.display = 'flex';
+        }
+
+        // Loka lesarann
+        function closeReader() {
+            readerContainer.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
