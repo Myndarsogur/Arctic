@@ -46,31 +46,6 @@
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="mask-icon" href="/logo.svg" color="#0f172a">
-  <script>
-    (function() {
-      const orgUrl = 'https://arcticcomics.org/';
-      const { hostname, pathname, search, hash } = window.location;
-      const robotsMeta = document.querySelector('meta[name="robots"]');
-      const canonicalLink = document.querySelector('link[rel="canonical"]');
-
-      if (canonicalLink) {
-        canonicalLink.setAttribute('href', orgUrl);
-      }
-
-      const isLegacyDomain = hostname === 'arcticcomics.net' || hostname.endsWith('.arcticcomics.net');
-
-      if (isLegacyDomain) {
-        if (robotsMeta) {
-          robotsMeta.setAttribute('content', 'noindex, follow');
-        }
-        if (canonicalLink) {
-          canonicalLink.setAttribute('href', orgUrl);
-        }
-        const redirectUrl = orgUrl.replace(/\/$/, '') + pathname + search + hash;
-        window.location.replace(redirectUrl);
-      }
-    })();
-  </script>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
