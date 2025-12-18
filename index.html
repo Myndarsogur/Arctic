@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="canonical" href="https://arcticcomics.net/">
-  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://arcticcomics.org/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <title>The Arctic Comics Journal</title>
   <meta name="title" content="The Arctic Comics Journal">
   <meta name="description" content="The Arctic Comics Journal is a bilingual platform amplifying voices from Arctic communities through comics, workshops, and collaboration.">
   <meta name="theme-color" content="#ffffff">
   <meta property="og:title" content="The Arctic Comics Journal">
   <meta property="og:description" content="Personal stories, illustrations, and workshops connecting Arctic and sub-Arctic communities.">
-  <meta property="og:image" content="https://arcticcomics.net/ogmynd.png">
-  <meta property="og:image:secure_url" content="https://arcticcomics.net/ogmynd.png">
+  <meta property="og:image" content="https://arcticcomics.org/ogmynd.png">
+  <meta property="og:image:secure_url" content="https://arcticcomics.org/ogmynd.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="2158">
   <meta property="og:image:height" content="1546">
   <meta property="og:image:alt" content="Illustrated Arctic landscape for the Arctic Comics Journal">
-  <meta property="og:url" content="https://arcticcomics.net/">
+  <meta property="og:url" content="https://arcticcomics.org/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="The Arctic Comics Journal">
   <meta property="og:locale" content="en_US">
@@ -25,9 +25,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The Arctic Comics Journal">
   <meta name="twitter:description" content="Comics, stories, and workshops shining a light on life across the Arctic.">
-  <meta name="twitter:image" content="https://arcticcomics.net/ogmynd.png">
+  <meta name="twitter:image" content="https://arcticcomics.org/ogmynd.png">
   <meta name="twitter:image:alt" content="Illustrated Arctic landscape for the Arctic Comics Journal">
-  <meta name="twitter:url" content="https://arcticcomics.net/">
+  <meta name="twitter:url" content="https://arcticcomics.org/">
   <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
@@ -37,13 +37,50 @@
   <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
   <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="mask-icon" href="/logo.svg" color="#0f172a">
+  <script>
+    (function() {
+      const orgUrl = 'https://arcticcomics.org/';
+      const { hostname, pathname, search, hash } = window.location;
+      const robotsMeta = document.querySelector('meta[name="robots"]');
+      const canonicalLink = document.querySelector('link[rel="canonical"]');
+
+      if (canonicalLink) {
+        canonicalLink.setAttribute('href', orgUrl);
+      }
+
+      const isLegacyDomain = hostname === 'arcticcomics.net' || hostname.endsWith('.arcticcomics.net');
+
+      if (isLegacyDomain) {
+        if (robotsMeta) {
+          robotsMeta.setAttribute('content', 'noindex, follow');
+        }
+        if (canonicalLink) {
+          canonicalLink.setAttribute('href', orgUrl);
+        }
+        const redirectUrl = orgUrl.replace(/\/$/, '') + pathname + search + hash;
+        window.location.replace(redirectUrl);
+      }
+    })();
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "The Arctic Comics Journal",
+      "url": "https://arcticcomics.org/",
+      "logo": "https://arcticcomics.org/logo.png",
+      "image": "https://arcticcomics.org/ogmynd.png"
+    }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
@@ -418,8 +455,8 @@
         <span class="pill" data-l10n-key="pill-across">Across the arctic</span>
       </div>
     </div>
-    <div class="hero-visual" aria-hidden="true">
-      <img src="./logo.svg" alt="The Arctic Comics Journal logo" loading="lazy" />
+    <div class="hero-visual">
+      <img src="/hero.jpg" alt="Illustrated Arctic landscape from the Arctic Comics Journal" width="1400" height="1003" fetchpriority="high" decoding="async" />
     </div>
   </div>
 
