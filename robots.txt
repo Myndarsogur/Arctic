@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://arcticcomics.org/sitemap.xml
+Host: arcticcomics.org
