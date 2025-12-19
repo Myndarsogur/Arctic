@@ -3,37 +3,5 @@
   <url>
     <loc>https://arcticcomics.org/</loc>
     <lastmod>2025-12-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://arcticcomics.org/#mission</loc>
-    <lastmod>2025-12-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://arcticcomics.org/#join</loc>
-    <lastmod>2025-12-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://arcticcomics.org/#workshops</loc>
-    <lastmod>2025-12-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://arcticcomics.org/#faq</loc>
-    <lastmod>2025-12-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://arcticcomics.org/#contact</loc>
-    <lastmod>2025-12-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
 </urlset>
