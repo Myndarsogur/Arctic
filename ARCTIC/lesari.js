@@ -2,7 +2,17 @@
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
-  const base = new URL('./', location.href);
+  const base = new URL('/', location.href);
+  const assets = new URL('/ARCTIC/', base);
+  function moveLegacySection() {
+    if (['#mission', '#join', '#workshops', '#faq', '#contact'].includes(location.hash) && !new URL(location.href).searchParams.has('hofundur')) {
+      location.replace(`/handbok/${location.hash}`);
+      return true;
+    }
+    return false;
+  }
+  if (moveLegacySection()) return;
+  window.addEventListener('hashchange', moveLegacySection);
   const storageKey = 'arctic.bref.v1';
   const state = { stories: [], story: null, page: 1, token: 0, zoomToken: 0, zoom: 2, libraryScroll: 0 };
   let saved = { pages: {}, last: null };
@@ -17,7 +27,7 @@
     url.searchParams.set('sida', String(page));
     return url.href;
   };
-  const assetURL = src => new URL(src, base).href;
+  const assetURL = src => new URL(src, assets).href;
   const boundedPage = (story, value) => Math.min(story.pages.length, Math.max(1, Number.parseInt(value, 10) || 1));
   const resumePage = story => boundedPage(story, saved.pages[story.id]);
   let announcementTimer;
@@ -343,7 +353,7 @@
     openZoom();
   });
 
-  fetch(new URL('sogur.json', base)).then(response => {
+  fetch(new URL('sogur.json', assets)).then(response => {
     if (!response.ok) throw new Error('catalogue');
     return response.json();
   }).then(catalogue => {

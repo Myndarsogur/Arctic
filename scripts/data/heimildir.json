@@ -1,0 +1,10 @@
+{
+  "data": "ne_110m_land.geojson",
+  "source": "https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_land.geojson",
+  "credit": "Made with Natural Earth",
+  "terms": "https://www.naturalearthdata.com/about/terms-of-use/",
+  "licence": "Public domain",
+  "projection": "North-polar stereographic, central longitude -20 degrees; decorative extent 45–90 degrees north",
+  "arcticCircleLatitude": 66.56,
+  "sha256": "9e0729ee253ca7d7a5c4ae9395fb1902264c5377c52e224d13dd85010e2835d9"
+}

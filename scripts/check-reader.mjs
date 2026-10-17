@@ -10,7 +10,7 @@ import path from 'node:path';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const require = createRequire(process.env.PLAYWRIGHT_MODULE || import.meta.url);
 const { chromium, webkit } = require('playwright');
-const base = process.env.READER_URL || 'http://127.0.0.1:4338/ARCTIC/';
+const base = process.env.READER_URL || 'http://127.0.0.1:4338/';
 const proof = process.env.READER_PROOF_DIR || path.join(root, 'verkferlar/2026-10-17-bref-lesari/profun');
 await mkdir(proof, { recursive: true });
 const catalogue = JSON.parse(await readFile(path.join(root, 'ARCTIC/sogur.json'), 'utf8'));
