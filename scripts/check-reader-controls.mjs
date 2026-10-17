@@ -2,11 +2,14 @@
    PLAYWRIGHT_MODULE=/path/to/package.json node scripts/check-reader-controls.mjs */
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
-import {mkdir,writeFile} from 'node:fs/promises';
+import {mkdir,writeFile,readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 const {chromium,webkit}=createRequire(process.env.PLAYWRIGHT_MODULE||import.meta.url)('playwright');
 const base=process.env.READER_URL||'http://127.0.0.1:4338/';
+const language=new URL(base).pathname.startsWith('/en/')?'en':'is';
+const ui=JSON.parse(await readFile(new URL('../ARCTIC/reader-copy.json',import.meta.url),'utf8'))[language];
+const t=(key,values={})=>ui[key].replace(/\{(\w+)\}/g,(_,name)=>String(values[name]));
 const proof=process.env.READER_PROOF_DIR||fileURLToPath(new URL('../verkferlar/2026-10-17-lesstika/profun',import.meta.url));
 await mkdir(proof,{recursive:true});
 const report={base,time:new Date().toISOString(),checks:[],errors:[]};
@@ -49,7 +52,7 @@ for(const [engine,name] of [[chromium,'Chrome'],[webkit,'WebKit']]){
   await ready(page);
   const artBefore=await page.locator('#page-image').boundingBox();
   await page.waitForFunction(()=>getComputedStyle(document.querySelector('#reader-controls')).visibility==='hidden');
-  assert.equal(await page.getByRole('button',{name:'Næsta síða',exact:true}).count(),0);
+  assert.equal(await page.getByRole('button',{name:ui.next_page,exact:true}).count(),0);
   assert.equal(await page.locator('#page-art').getAttribute('aria-expanded'),'false');
   const artAfter=await page.locator('#page-image').boundingBox();
   assert.deepEqual(artAfter,artBefore,'Hiding the strip must not move or resize the artwork');
@@ -69,12 +72,12 @@ for(const [engine,name] of [[chromium,'Chrome'],[webkit,'WebKit']]){
   await page.locator('#page-counter').tap();
   await page.waitForTimeout(3300);
   assert.equal(await page.locator('#pages-dialog').isVisible(),true);
-  await page.getByRole('button',{name:'Síða 4',exact:true}).tap();
+  await page.getByRole('button',{name:t('page',{page:4}),exact:true}).tap();
   await page.waitForSelector('#reader[data-ready=true][data-page="4"]');
   assert.equal(await page.locator('#reader-controls').isVisible(),true);
   await page.locator('#zoom-page').tap();
   await page.locator('#zoom-dialog').waitFor({state:'visible'});
-  await page.getByRole('button',{name:'Loka stækkun',exact:true}).tap();
+  await page.getByRole('button',{name:ui.close_zoom,exact:true}).tap();
   assert.equal(await page.locator('#reader-controls').isVisible(),true);
   pass(`${name}: strip fades after inactivity, does not shift artwork, wakes on tap and remains usable through dialogs`);
   await touchContext.close();

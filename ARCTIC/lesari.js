@@ -2,11 +2,15 @@
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
-  const base = new URL('/', location.href);
+  const language = document.documentElement.lang === 'en' ? 'en' : 'is';
+  const copy = JSON.parse($('reader-copy').textContent);
+  const t = (key, values = {}) => copy[key].replace(/\{(\w+)\}/g, (_, name) => String(values[name] ?? ''));
+  const base = new URL(language === 'en' ? '/en/' : '/', location.href);
+  const handbook = language === 'en' ? '/handbok/en/' : '/handbok/';
   const assets = new URL('/ARCTIC/', base);
   function moveLegacySection() {
     if (['#mission', '#join', '#workshops', '#faq', '#contact'].includes(location.hash) && !new URL(location.href).searchParams.has('hofundur')) {
-      location.replace(`/handbok/${location.hash}`);
+      location.replace(`${handbook}${location.hash}`);
       return true;
     }
     return false;
@@ -96,7 +100,7 @@
       const link = card.querySelector('a');
       const hasPosition = Boolean(saved.pages[story.id]);
       link.href = storyURL(story, page);
-      link.setAttribute('aria-label', `Opna sögu — ${story.author}${hasPosition ? `. Lesstaður: síða ${page} af ${story.pages.length}` : ''}`);
+      link.setAttribute('aria-label', t('open_story', { author: story.author }) + (hasPosition ? t('saved_place', { page, total: story.pages.length }) : ''));
       card.classList.toggle('has-position', hasPosition);
       const trail = card.querySelector('[data-story-trail]');
       trail.hidden = !hasPosition;
@@ -126,7 +130,7 @@
     $('library').hidden = false;
     $('library-status').hidden = !message;
     $('library-status').textContent = message;
-    document.title = 'Bréf frá heimskautinu · The Arctic Comics Journal';
+    document.title = `${copy.title} · The Arctic Comics Journal`;
     document.querySelector('.skip').href = '#library-title';
     updateLibrary();
     if (push) history.pushState(null, '', base);
@@ -146,7 +150,7 @@
     if (entering) showControls();
     document.querySelector('.skip').href = '#reader-author';
     $('reader-author').textContent = story.author;
-    document.title = `${story.author} · Bréf frá heimskautinu`;
+    document.title = `${story.author} · ${copy.title}`;
     const url = storyURL(story, state.page);
     if (push) history.pushState(null, '', url);
     else history.replaceState(null, '', url);
@@ -161,24 +165,25 @@
     const token = ++state.token;
     const image = $('page-image');
     const data = story.pages[page - 1];
-    const description = `${story.author} — síða ${page} af ${story.pages.length}`;
+    const description = t('image_alt', { author: story.author, page, total: story.pages.length });
+    const position = t('page_of', { page, total: story.pages.length });
     $('reader').dataset.story = story.id;
     $('reader').dataset.page = String(page);
     $('reader').dataset.ready = 'false';
     document.querySelector('.reading-space').setAttribute('aria-busy', 'true');
-    $('reader-status').textContent = 'Síðan er að koma…';
+    $('reader-status').textContent = copy.loading;
     $('page-error').hidden = true;
     $('page-art').disabled = true;
     $('zoom-page').disabled = true;
     $('page-art').hidden = false;
-    $('page-art').setAttribute('aria-label', `Sýna eða fela lesstiku — ${description}`);
+    $('page-art').setAttribute('aria-label', `${copy.toggle_controls} — ${description}`);
     drawTrail($('reader-trail'), story.pages.length, page);
-    $('page-counter').setAttribute('aria-label', `Síða ${page} af ${story.pages.length}. Opna síðuyfirlit`);
+    $('page-counter').setAttribute('aria-label', `${position}. ${copy.overview}`);
     $('previous-page').disabled = page === 1;
     $('next-page').disabled = page === story.pages.length;
     $('reading-progress').setAttribute('aria-valuemax', String(story.pages.length));
     $('reading-progress').setAttribute('aria-valuenow', String(page));
-    $('reading-progress').setAttribute('aria-valuetext', `Síða ${page} af ${story.pages.length}`);
+    $('reading-progress').setAttribute('aria-valuetext', position);
     $('reading-progress').firstElementChild.style.width = `${page / story.pages.length * 100}%`;
     document.querySelectorAll('.thumbnail-button').forEach((button, index) => {
       if (index === page - 1) button.setAttribute('aria-current', 'page');
@@ -195,7 +200,7 @@
       image.hidden = false;
       $('reader').dataset.ready = 'true';
       document.querySelector('.reading-space').setAttribute('aria-busy', 'false');
-      $('reader-status').textContent = `Síða ${page} af ${story.pages.length}`;
+      $('reader-status').textContent = position;
       $('page-art').disabled = false;
       $('zoom-page').disabled = false;
       if (!$('reader').classList.contains('controls-hidden')) scheduleControlsHide();
@@ -238,7 +243,7 @@
       const button = document.createElement('button');
       button.className = 'thumbnail-button';
       button.type = 'button';
-      button.setAttribute('aria-label', `Síða ${index + 1}`);
+      button.setAttribute('aria-label', t('page', { page: index + 1 }));
       const image = new Image();
       image.src = assetURL(page.thumb.src);
       image.alt = '';
@@ -291,7 +296,7 @@
     $('zoom-image').width = page.read.width;
     $('zoom-image').height = page.read.height;
     $('zoom-image').alt = $('page-image').alt;
-    $('zoom-status').textContent = 'Frumupplausnin er að koma…';
+    $('zoom-status').textContent = copy.original_loading;
     $('open-original').href = assetURL(page.original.src);
     openDialog($('zoom-dialog'));
     resizeZoom(window.innerWidth <= 720 ? 2 : 1.5, false);
@@ -305,7 +310,7 @@
       $('zoom-status').textContent = '';
     };
     original.onerror = () => {
-      if (token === state.zoomToken && $('zoom-dialog').open) $('zoom-status').textContent = 'Frumupplausnin náðist ekki. Lesafritið er áfram sýnilegt.';
+      if (token === state.zoomToken && $('zoom-dialog').open) $('zoom-status').textContent = copy.original_error;
     };
     original.src = assetURL(page.original.src);
   }
@@ -315,9 +320,9 @@
     const url = storyURL(state.story, state.page);
     try {
       await navigator.clipboard.writeText(url);
-      announce('Deilihlekkur afritaður.');
-      $('share-story').querySelector('span').textContent = 'Afritað';
-      setTimeout(() => { $('share-story').querySelector('span').textContent = 'Deila'; }, 2000);
+      announce(copy.copied);
+      $('share-story').querySelector('span').textContent = copy.copied_button;
+      setTimeout(() => { $('share-story').querySelector('span').textContent = copy.share; }, 2000);
     } catch {
       $('share-url').value = url;
       openDialog($('share-dialog'));
@@ -331,7 +336,7 @@
     const id = params.get('hofundur');
     const story = state.stories.find(item => item.id === id || item.legacyKey === id);
     if (story) showStory(story, params.get('sida'), { focus });
-    else showLibrary({ focus, message: id ? 'Þessi saga fannst ekki. Veldu sögu hér fyrir neðan.' : '' });
+    else showLibrary({ focus, message: id ? copy.unknown_story : '' });
   }
 
   document.addEventListener('click', event => {
@@ -442,6 +447,6 @@
     route();
   }).catch(() => {
     $('library-status').hidden = false;
-    $('library-status').textContent = 'Lesarinn náðist ekki. Prófaðu að endurhlaða síðunni.';
+    $('library-status').textContent = copy.reader_error;
   });
 })();

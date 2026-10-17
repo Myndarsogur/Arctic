@@ -13,6 +13,9 @@ const { chromium, webkit } = require('playwright');
 const base = process.env.READER_URL || 'http://127.0.0.1:4338/';
 const proof = process.env.READER_PROOF_DIR || path.join(root, 'verkferlar/2026-10-17-heimskaut-lesari/lesaraprof');
 await mkdir(proof, { recursive: true });
+const language=new URL(base).pathname.startsWith('/en/')?'en':'is';
+const ui=JSON.parse(await readFile(path.join(root,'ARCTIC/reader-copy.json'),'utf8'))[language];
+const t=(key,values={})=>ui[key].replace(/\{(\w+)\}/g,(_,name)=>String(values[name]));
 const catalogue = JSON.parse(await readFile(path.join(root, 'ARCTIC/sogur.json'), 'utf8'));
 const source = JSON.parse(await readFile(path.join(root, 'ARCTIC/heimildir.json'), 'utf8'));
 const report = { base, time: new Date().toISOString(), checks: [], errors: [] };
@@ -105,9 +108,9 @@ try {
   assert.equal(await page.locator('#reader-trail i.is-current').evaluate(marker => [...marker.parentElement.children].indexOf(marker)), 4);
   await page.locator('#page-counter').click();
   assert.equal(await page.locator('.thumbnail-button').count(), 8);
-  assert.equal(await page.locator('.thumbnail-button[aria-current=page]').getAttribute('aria-label'), 'Síða 5');
+  assert.equal(await page.locator('.thumbnail-button[aria-current=page]').getAttribute('aria-label'), t('page',{page:5}));
   assert.equal(await page.locator('.thumbnail-button').allTextContents().then(labels => labels.join('').trim()), '');
-  await page.getByRole('button', { name: 'Síða 4', exact: true }).click();
+  await page.getByRole('button', { name: t('page',{page:4}), exact: true }).click();
   await ready(page, 'breki', 4);
   assert.equal(await page.locator('#pages-dialog').isVisible(), false);
   check('Keyboard, rapid navigation and page overview select the correct image');
@@ -129,7 +132,7 @@ try {
   check('Zoom loads the original only on demand, supports magnification/panning and Escape');
 
   await page.locator('#share-story').click();
-  await page.waitForFunction(() => document.getElementById('action-status').textContent.includes('afritaður'));
+  await page.waitForFunction(message => document.getElementById('action-status').textContent === message, ui.copied);
   assert.equal(await page.evaluate(() => navigator.clipboard.readText()), url('breki', 4));
   await page.evaluate(() => { navigator.clipboard.writeText = async () => { throw new Error('clipboard unavailable'); }; });
   await page.locator('#share-story').click();
@@ -251,7 +254,7 @@ try {
     await ready(page, story.id, 1);
     await noOverflow(page);
     await page.locator('#page-counter').click();
-    await page.getByRole('button', { name: `Síða ${story.pages.length}`, exact: true }).click();
+    await page.getByRole('button', { name: t('page',{page:story.pages.length}), exact: true }).click();
     await ready(page, story.id, story.pages.length);
     await expectImage(page, story.pages.at(-1));
     assert.equal(await page.locator('#story-end').isVisible(), true);
@@ -266,7 +269,7 @@ try {
   // WebKit can finish decoding before its scrolling layer has painted the image.
   await page.waitForTimeout(1000);
   await page.screenshot({ path: path.join(proof, 'webkit-mobile-zoom.png') });
-  await page.getByRole('button', { name: 'Loka stækkun', exact: true }).click();
+  await page.getByRole('button', { name: ui.close_zoom, exact: true }).click();
   await page.locator('#all-stories').click();
   await noOverflow(page);
   await page.screenshot({ path: path.join(proof, 'webkit-mobile-library.png'), fullPage: true });
