@@ -195,6 +195,8 @@ try {
   const touch = await touchContext.newPage();
   await touch.goto(url('breki'));
   await ready(touch, 'breki', 1);
+  await touch.locator('#page-art').tap();
+  assert.equal(await touch.locator('#page-art').getAttribute('aria-expanded'), 'false');
   const cdp = await touchContext.newCDPSession(touch);
   const box = await touch.locator('#page-image').boundingBox();
   const y = Math.round(box.y + box.height / 2);
@@ -203,16 +205,16 @@ try {
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
   await ready(touch, 'breki', 2);
   assert.equal(await touch.locator('#zoom-dialog').isVisible(), false);
+  assert.equal(await touch.locator('#page-art').getAttribute('aria-expanded'), 'false');
+  await touch.waitForTimeout(750);
   await touch.locator('#page-art').tap();
-  // A second deliberate tap after the swipe suppression period opens magnification.
-  if (!await touch.locator('#zoom-dialog').isVisible()) {
-    await touch.waitForTimeout(750);
-    await touch.locator('#page-art').tap();
-  }
+  assert.equal(await touch.locator('#page-art').getAttribute('aria-expanded'), 'true');
+  assert.equal(await touch.locator('#zoom-dialog').isVisible(), false);
+  await touch.locator('#zoom-page').tap();
   await touch.locator('#zoom-dialog').waitFor({ state: 'visible' });
   await noOverflow(touch);
   await touch.screenshot({ path: path.join(proof, 'zoom-mobile.png') });
-  check('Real browser touch events swipe pages; swipe does not trigger zoom; tap opens zoom');
+  check('Touch swipe preserves the quiet reader; tap reveals the strip and its zoom button opens the original');
   await touchContext.close();
 
   const blocked = await browser.newContext();

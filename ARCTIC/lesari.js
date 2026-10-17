@@ -30,6 +30,42 @@
   const assetURL = src => new URL(src, assets).href;
   const boundedPage = (story, value) => Math.min(story.pages.length, Math.max(1, Number.parseInt(value, 10) || 1));
   const resumePage = story => boundedPage(story, saved.pages[story.id]);
+  const controls = $('reader-controls');
+  let controlsTimer;
+  let controlsHovered = false;
+  let keyboardNavigation = false;
+
+  function hideControls() {
+    if (controls.contains(document.activeElement)) document.activeElement.blur();
+    clearTimeout(controlsTimer);
+    $('reader').classList.add('controls-hidden');
+    controls.inert = true;
+    controls.setAttribute('aria-hidden', 'true');
+    $('page-art').setAttribute('aria-expanded', 'false');
+  }
+
+  function scheduleControlsHide() {
+    clearTimeout(controlsTimer);
+    if (!state.story || $('reader').dataset.ready !== 'true') return;
+    controlsTimer = setTimeout(() => {
+      if ($('reader').dataset.ready !== 'true' || document.querySelector('dialog[open]') || controlsHovered || (keyboardNavigation && controls.contains(document.activeElement))) return;
+      hideControls();
+    }, 3000);
+  }
+
+  function showControls() {
+    if (!state.story) return;
+    $('reader').classList.remove('controls-hidden');
+    controls.inert = false;
+    controls.removeAttribute('aria-hidden');
+    $('page-art').setAttribute('aria-expanded', 'true');
+    scheduleControlsHide();
+  }
+
+  function toggleControls() {
+    if ($('reader').classList.contains('controls-hidden')) showControls();
+    else hideControls();
+  }
   let announcementTimer;
   const announce = message => {
     clearTimeout(announcementTimer);
@@ -81,6 +117,8 @@
 
   function showLibrary({ push = false, message = '', focus = true } = {}) {
     closeDialogs();
+    clearTimeout(controlsTimer);
+    controlsHovered = false;
     state.token++;
     state.story = null;
     document.body.classList.remove('is-reading');
@@ -105,6 +143,7 @@
     $('library').hidden = true;
     $('reader').hidden = false;
     document.body.classList.add('is-reading');
+    if (entering) showControls();
     document.querySelector('.skip').href = '#reader-author';
     $('reader-author').textContent = story.author;
     document.title = `${story.author} · Bréf frá heimskautinu`;
@@ -132,7 +171,7 @@
     $('page-art').disabled = true;
     $('zoom-page').disabled = true;
     $('page-art').hidden = false;
-    $('page-art').setAttribute('aria-label', `Stækka — ${description}`);
+    $('page-art').setAttribute('aria-label', `Sýna eða fela lesstiku — ${description}`);
     drawTrail($('reader-trail'), story.pages.length, page);
     $('page-counter').setAttribute('aria-label', `Síða ${page} af ${story.pages.length}. Opna síðuyfirlit`);
     $('previous-page').disabled = page === 1;
@@ -159,6 +198,7 @@
       $('reader-status').textContent = `Síða ${page} af ${story.pages.length}`;
       $('page-art').disabled = false;
       $('zoom-page').disabled = false;
+      if (!$('reader').classList.contains('controls-hidden')) scheduleControlsHide();
       remember(story, page);
       if (page === story.pages.length) showEnding(story);
       const next = story.pages[page];
@@ -170,6 +210,7 @@
       $('reader-status').textContent = '';
       $('page-art').hidden = true;
       $('page-error').hidden = false;
+      showControls();
     };
     loader.src = assetURL(data.read.src);
   }
@@ -211,6 +252,8 @@
   }
 
   function openDialog(dialog) {
+    showControls();
+    clearTimeout(controlsTimer);
     dialog.showModal();
     document.body.classList.add('dialog-open');
   }
@@ -307,7 +350,10 @@
   document.querySelectorAll('[data-close]').forEach(button => button.addEventListener('click', () => $(button.dataset.close).close()));
   document.querySelectorAll('dialog').forEach(dialog => {
     dialog.addEventListener('close', () => {
-      if (!document.querySelector('dialog[open]')) document.body.classList.remove('dialog-open');
+      if (!document.querySelector('dialog[open]')) {
+        document.body.classList.remove('dialog-open');
+        showControls();
+      }
       if (dialog.id === 'zoom-dialog') {
         state.zoomToken++;
         $('zoom-image').removeAttribute('src');
@@ -327,9 +373,32 @@
   $('share-story').addEventListener('click', share);
   $('zoom-out').addEventListener('click', () => resizeZoom(state.zoom - .5));
   $('zoom-in').addEventListener('click', () => resizeZoom(state.zoom + .5));
+  controls.addEventListener('pointerenter', event => {
+    if (event.pointerType !== 'mouse') return;
+    controlsHovered = true;
+    clearTimeout(controlsTimer);
+  });
+  controls.addEventListener('pointerleave', event => {
+    if (event.pointerType !== 'mouse') return;
+    controlsHovered = false;
+    scheduleControlsHide();
+  });
+  controls.addEventListener('focusin', showControls);
+  controls.addEventListener('focusout', scheduleControlsHide);
+  $('reader').addEventListener('pointerdown', () => { keyboardNavigation = false; });
+  $('reader').addEventListener('pointermove', event => {
+    if (event.pointerType === 'mouse') showControls();
+  });
+  document.querySelector('.reading-space').addEventListener('click', event => {
+    if (!event.target.closest('button,a')) toggleControls();
+  });
   window.addEventListener('resize', () => { if ($('zoom-dialog').open) resizeZoom(state.zoom); });
   window.addEventListener('popstate', () => route({ focus: true }));
   document.addEventListener('keydown', event => {
+    if (state.story && event.key === 'Tab' && !document.querySelector('dialog[open]')) {
+      keyboardNavigation = true;
+      showControls();
+    }
     if (!state.story || event.defaultPrevented || document.querySelector('dialog[open]') || event.altKey || event.metaKey || event.ctrlKey || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName)) return;
     if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
       event.preventDefault();
@@ -359,7 +428,8 @@
   $('page-art').addEventListener('pointercancel', event => { pointers.delete(event.pointerId); gesture = null; });
   $('page-art').addEventListener('click', event => {
     if (performance.now() < suppressClickUntil) { event.preventDefault(); return; }
-    openZoom();
+    if (event.detail === 0) showControls();
+    else toggleControls();
   });
 
   fetch(new URL('sogur.json', assets)).then(response => {
