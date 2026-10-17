@@ -37,22 +37,34 @@
     announcementTimer = setTimeout(() => { $('action-status').textContent = ''; }, 3000);
   };
 
+  function drawTrail(container, total, current) {
+    if (container.children.length !== total) {
+      container.replaceChildren(...Array.from({ length: total }, (_, index) => {
+        const step = document.createElement('i');
+        step.style.setProperty('--drift', `${[0, 2, -1, 1, -2, 1, 0, 2][index % 8]}px`);
+        return step;
+      }));
+    }
+    container.dataset.position = String(current);
+    [...container.children].forEach((step, index) => {
+      step.classList.toggle('is-current', index === current - 1);
+      step.classList.toggle('is-before', index < current - 1);
+    });
+  }
+
   function updateLibrary() {
     for (const story of state.stories) {
       const card = document.querySelector(`.story-card[data-story="${story.id}"]`);
       if (!card) continue;
       const page = resumePage(story);
-      card.querySelector('a').href = storyURL(story, page);
-      card.querySelector('[data-progress-label]').textContent = saved.pages[story.id] ? `Halda áfram · ${page} / ${story.pages.length}` : 'Opna söguna';
-    }
-    const last = state.stories.find(story => story.id === saved.last);
-    $('continue-reading').hidden = !last;
-    if (last) {
-      const page = resumePage(last);
-      $('continue-reading').href = storyURL(last, page);
-      $('continue-cover').src = assetURL(last.pages[page - 1].thumb.src);
-      $('continue-author').textContent = last.author;
-      $('continue-page').textContent = `Síða ${page} af ${last.pages.length}`;
+      const link = card.querySelector('a');
+      const hasPosition = Boolean(saved.pages[story.id]);
+      link.href = storyURL(story, page);
+      link.setAttribute('aria-label', `Opna sögu — ${story.author}${hasPosition ? `. Lesstaður: síða ${page} af ${story.pages.length}` : ''}`);
+      card.classList.toggle('has-position', hasPosition);
+      const trail = card.querySelector('[data-story-trail]');
+      trail.hidden = !hasPosition;
+      if (hasPosition) drawTrail(trail, story.pages.length, page);
     }
   }
 
@@ -121,7 +133,7 @@
     $('zoom-page').disabled = true;
     $('page-art').hidden = false;
     $('page-art').setAttribute('aria-label', `Stækka — ${description}`);
-    $('page-counter').textContent = `${page} / ${story.pages.length}`;
+    drawTrail($('reader-trail'), story.pages.length, page);
     $('page-counter').setAttribute('aria-label', `Síða ${page} af ${story.pages.length}. Opna síðuyfirlit`);
     $('previous-page').disabled = page === 1;
     $('next-page').disabled = page === story.pages.length;
@@ -192,9 +204,7 @@
       image.width = page.thumb.width;
       image.height = page.thumb.height;
       image.loading = 'lazy';
-      const label = document.createElement('span');
-      label.textContent = String(index + 1);
-      button.append(image, label);
+      button.append(image);
       button.addEventListener('click', () => showStory(story, index + 1));
       return button;
     }));
@@ -233,7 +243,7 @@
     if (!state.story || $('page-art').disabled) return;
     const page = state.story.pages[state.page - 1];
     const token = ++state.zoomToken;
-    $('zoom-title').textContent = `${state.story.author} · síða ${state.page} af ${state.story.pages.length}`;
+    $('zoom-title').textContent = state.story.author;
     $('zoom-image').src = assetURL(page.read.src);
     $('zoom-image').width = page.read.width;
     $('zoom-image').height = page.read.height;
@@ -278,7 +288,7 @@
     const id = params.get('hofundur');
     const story = state.stories.find(item => item.id === id || item.legacyKey === id);
     if (story) showStory(story, params.get('sida'), { focus });
-    else showLibrary({ focus, message: id ? 'Þessi saga fannst ekki. Hér eru sögurnar tólf.' : '' });
+    else showLibrary({ focus, message: id ? 'Þessi saga fannst ekki. Veldu sögu hér fyrir neðan.' : '' });
   }
 
   document.addEventListener('click', event => {
@@ -312,7 +322,6 @@
   $('previous-page').addEventListener('click', () => turn(-1));
   $('next-page').addEventListener('click', () => turn(1));
   $('retry-page').addEventListener('click', renderPage);
-  $('show-pages').addEventListener('click', openPages);
   $('page-counter').addEventListener('click', openPages);
   $('zoom-page').addEventListener('click', openZoom);
   $('share-story').addEventListener('click', share);

@@ -10,22 +10,18 @@ const {chromium}=createRequire(process.env.PLAYWRIGHT_MODULE||import.meta.url)('
 const root=new URL('../',import.meta.url);
 const inside=svg=>svg.replace(/^<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'').replace(/<(title|desc)>[\s\S]*?<\/\1>/g,'');
 const read=async file=>readFile(new URL(file,root),'utf8');
-const map=inside(await read('assets/skraut/heimskaut.svg'));
-const envelope=inside(await read('assets/skraut/umslag.svg'));
 const nameSVG=await read('assets/arctic-name.svg');
 const nameViewBox=nameSVG.match(/viewBox="([^"]+)"/)[1];
 const lettering=renderLifArtwork(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-<text x="59" y="194" font-size="91" fill="#2a2633">Bréf frá</text>
-<text x="59" y="303" font-size="73" fill="#2a2633">heimskautinu.</text>
-<text x="61" y="399" font-size="27" fill="#655e6e">12 höfundar · 83 teiknaðar síður</text></svg>`);
+<text x="600" y="215" text-anchor="middle" font-size="25" fill="#526f79">kynnir</text>
+<text x="600" y="350" text-anchor="middle" font-size="110" fill="#23424c">Bréf frá</text>
+<text x="600" y="475" text-anchor="middle" font-size="92" fill="#23424c">heimskautinu</text></svg>`);
 const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><title>Bréf frá heimskautinu · The Arctic Comics Journal</title>
-<rect width="1200" height="630" fill="#f6f1e3"/>
-<path d="M42 45 1155 43M45 583 1154 586" stroke="#2a2633" stroke-width="3"/>
-<svg x="720" y="46" width="439" height="439" viewBox="0 0 720 720" opacity=".7">${map}</svg>
-<g transform="translate(750 202) rotate(-7 200 150) scale(.67)">${envelope}</g>
-<path d="M63 338Q302 350 581 339" fill="none" stroke="#f6a5c9" stroke-width="11"/>
+<rect width="1200" height="630" fill="#edf5f5"/>
+<svg x="210" y="94" width="780" height="72" viewBox="${nameViewBox}" fill="#23424c">${inside(nameSVG)}</svg>
 ${inside(lettering.svg)}
-<svg x="61" y="488" width="585" height="62" viewBox="${nameViewBox}" fill="#2a2633">${inside(nameSVG)}</svg></svg>`;
+<path d="M154 548c144-13 270 7 404-2s323-3 488-1" fill="none" stroke="#a2c6ce" stroke-width="2.5"/>
+</svg>`;
 if(/<text\b/.test(svg))throw new Error('All distributed lettering must be outlined');
 await writeFile(new URL('assets/bref-og.svg',root),svg);
 const browser=await chromium.launch({channel:'chrome',headless:true});

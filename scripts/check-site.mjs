@@ -11,7 +11,7 @@ import path from 'node:path';
 const root=fileURLToPath(new URL('../',import.meta.url));
 const {chromium,webkit}=createRequire(process.env.PLAYWRIGHT_MODULE||import.meta.url)('playwright');
 const base=process.env.READER_URL||'http://127.0.0.1:4338/';
-const proof=process.env.READER_PROOF_DIR||path.join(root,'verkferlar/2026-10-17-forsida-handbok/profun');
+const proof=process.env.READER_PROOF_DIR||path.join(root,'verkferlar/2026-10-17-heimskaut-lesari/profun');
 await mkdir(proof,{recursive:true});
 const source=JSON.parse(await readFile(path.join(root,'handbok/efni.json'),'utf8'));
 const original=execFileSync('git',['show',`${source.source.commit}:${source.source.path}`],{cwd:root});
@@ -48,18 +48,15 @@ for(const [engine,label]of[[chromium,'Chrome'],[webkit,'WebKit']]){
     if(route===''){
      assert.equal(await p.locator('.story-card').count(),12);
      assert.equal(await p.locator('.project-link').getAttribute('href'),'/handbok/');
-     assert.equal(await p.locator('.mail-art .polar-map').isVisible(),true);
-     assert.equal(await p.locator('.mail-art .envelope').isVisible(),true);
-     await p.waitForFunction(()=>[...document.querySelectorAll('.mail-art img')].every(i=>i.complete&&i.naturalWidth>0));
-     const icelandClear=await p.evaluate(()=>{
-      const map=document.querySelector('.mail-art .polar-map'),parent=map.parentElement.getBoundingClientRect(),css=getComputedStyle(map);
-      const w=parseFloat(css.width),h=parseFloat(css.height),theta=(-19-115)*Math.PI/180;
-      const r=320*Math.tan(Math.PI/4-65*Math.PI/360)/Math.tan(Math.PI/8);
-      const x=(360+r*Math.sin(theta))/720*w-w/2,y=(360+r*Math.cos(theta))/720*h-h/2;
-      const m=new DOMMatrix(css.transform),px=parent.left+parseFloat(css.left)+w/2+m.a*x+m.c*y,py=parent.top+parseFloat(css.top)+h/2+m.b*x+m.d*y;
-      return [...document.querySelectorAll('.mail-art .envelope,.letter-pages img')].every(i=>{const b=i.getBoundingClientRect();return px<b.left||px>b.right||py<b.top||py>b.bottom;});
-     });
-     assert.equal(icelandClear,true,`${label} ${width}: Iceland must remain outside the envelope and letter images`);
+     assert.equal(await p.locator('.mail-art,.envelope,.story-number,.page-count,#continue-reading').count(),0);
+     assert.equal((await p.locator('.presenter .brand').innerText()).trim(),'THE ARCTIC COMICS JOURNAL');
+     assert.equal((await p.locator('.presents').innerText()).trim(),'kynnir');
+     assert.equal((await p.locator('#library-title').innerText()).replace(/\s+/g,' ').trim(),'Bréf frá heimskautinu');
+     assert.equal(await p.locator('.story-caption').allTextContents().then(captions=>captions.some(text=>/\d/.test(text))),false);
+     assert.equal(/Tólf myndasögur|83 síður|Opnaðu sögu|Halda áfram/.test(await p.locator('#library').innerText()),false);
+     const artworkWidth=await p.locator('.cover').first().evaluate(cover=>cover.getBoundingClientRect().width);
+     assert.ok(artworkWidth>=(width<=580?width*.8:width<=1100?width*.35:width*.25));
+
     }else{
      assert.equal(await p.locator('.book-chapter').count(),6);
      assert.equal(await p.locator('.partner-links a').count(),8);
@@ -79,8 +76,10 @@ for(const [engine,label]of[[chromium,'Chrome'],[webkit,'WebKit']]){
   assert.equal(new URL(p.url()).pathname,'/');
   assert.ok(p.url().includes('hofundur=vigdis&sida=6'));
   await p.locator('#all-stories').click();
-  assert.equal(await p.locator('#continue-author').textContent(),'Vigdís');
-  assert.ok((await p.locator('#continue-reading').getAttribute('href')).includes('sida=6'));
+  const saved=p.locator('.story-card[data-story=vigdis]');
+  assert.ok((await saved.locator('a').getAttribute('href')).includes('sida=6'));
+  assert.equal(await saved.locator('[data-story-trail]').getAttribute('data-position'),'6');
+  assert.equal(await saved.locator('.story-bookmark').isVisible(),true);
   pass(`${label}: old accented author/page links move to the new homepage and retain reading position`);
   for(const id of ['mission','join','workshops','faq','contact']){
    await p.goto(new URL(`#${id}`,base).href);

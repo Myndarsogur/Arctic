@@ -35,13 +35,13 @@ def build_wordmarks():
                 x += font['hmtx'][name][0]
         left=min(b[0] for b in bounds)-em*.04; top=min(b[1] for b in bounds)-em*.04
         width=max(b[2] for b in bounds)-left+em*.04; height=max(b[3] for b in bounds)-top+em*.04
-        return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{left:g} {top:g} {width:g} {height:g}" fill="#2a2633" data-font="Luke Medium200"><title>The Arctic Comics Journal</title>{"".join(paths)}</svg>'
+        return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{left:g} {top:g} {width:g} {height:g}" fill="#23424c" data-font="Luke Medium200"><title>The Arctic Comics Journal</title>{"".join(paths)}</svg>'
     (ROOT/'assets/arctic-wordmark.svg').write_text(mark(['The Arctic','Comics Journal']))
     (ROOT/'assets/arctic-name.svg').write_text(mark(['The Arctic Comics Journal']))
     letter=mark(['A'])
     viewbox=letter.split('viewBox="')[1].split('"')[0]
     inside=letter.split('</title>')[1].removesuffix('</svg>')
-    (ROOT/'assets/arctic-mark.svg').write_text(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="60" fill="#f6f1e3"/><svg x="80" y="58" width="352" height="396" viewBox="{viewbox}" fill="#2a2633">{inside}</svg></svg>')
+    (ROOT/'assets/arctic-mark.svg').write_text(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="60" fill="#edf5f5"/><svg x="80" y="58" width="352" height="396" viewBox="{viewbox}" fill="#23424c">{inside}</svg></svg>')
 
 def build_skraut():
     out = ROOT / 'assets/skraut'
@@ -70,17 +70,17 @@ def build_skraut():
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="720" height="720" viewBox="0 0 720 720">
 <title>Norðurslóðir séðar frá norðurpólnum</title><desc>Skrautkort í pólstæðri stereógrafískri vörpun. Rauði hringurinn markar norðurheimskautsbaug. Landlínur: Natural Earth, public domain.</desc>
 <defs><clipPath id="polar-edge"><circle cx="360" cy="360" r="320"/></clipPath></defs>
-<circle cx="360" cy="360" r="328" fill="#fffbf0" stroke="#2a2633" stroke-width="2"/>
+<circle cx="360" cy="360" r="328" fill="#fffbf0" stroke="#23424c" stroke-width="2"/>
 <g clip-path="url(#polar-edge)"><circle cx="360" cy="360" r="320" fill="#c5dce2"/>
-<g fill="#f6f1e3" stroke="#637f83" stroke-width="1.15" stroke-linejoin="round" fill-rule="evenodd">{''.join(paths)}</g>
+<g fill="#edf5f5" stroke="#637f83" stroke-width="1.15" stroke-linejoin="round" fill-rule="evenodd">{''.join(paths)}</g>
 <g fill="none" stroke="#637f83" stroke-width=".75" opacity=".55">{meridians}{parallels}</g>
 <circle cx="360" cy="360" r="{arctic:.2f}" fill="none" stroke="#b84c46" stroke-width="2" stroke-dasharray="7 6"/>
-<path d="m360 341 4 15 15 4-15 4-4 15-4-15-15-4 15-4Z" fill="#2a2633"/>
+<path d="m360 341 4 15 15 4-15 4-4 15-4-15-15-4 15-4Z" fill="#23424c"/>
 </g><circle cx="360" cy="360" r="320" fill="none" stroke="#637f83" stroke-width="1.5"/></svg>'''
     (out / 'heimskaut.svg').write_text(svg)
     (out / 'umslag.svg').write_text('''<svg xmlns="http://www.w3.org/2000/svg" width="620" height="430" viewBox="0 0 620 430">
 <title>Umslag með rauðu vaxinnsigli</title>
-<g stroke="#2a2633" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<g stroke="#23424c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
 <path d="M40 178 309 12 581 177 583 395 39 398Z" fill="#e2cfad"/>
 <path d="M31 175Q30 165 44 167L576 165Q591 165 589 180L587 390Q588 403 574 402L45 405Q29 405 31 390Z" fill="#f4e5c8"/>
 <path d="m33 175 278 158 276-161" fill="#fff2d6"/>

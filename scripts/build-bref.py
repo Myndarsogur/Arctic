@@ -46,11 +46,12 @@ def main():
     assert catalogue['totalAuthors']==12 and catalogue['totalPages']==83
     (OUT/'sogur.json').write_text(json.dumps(catalogue,ensure_ascii=False,separators=(',',':'))+'\n')
     cards=[]
-    for n,story in enumerate(stories,1):
-        page=story['pages'][0];author=escape(story['author']);count=len(story['pages'])
-        cards.append(f'<article class="story-card" data-story="{story["id"]}"><a class="story-link" href="/?hofundur={story["id"]}&amp;sida=1" aria-label="Opna sögu — {author}, {count} síður"><div class="cover"><span class="story-number" aria-hidden="true">{n:02d}</span><img src="/ARCTIC/{page["thumb"]["src"]}" width="{page["thumb"]["width"]}" height="{page["thumb"]["height"]}" alt="Fyrsta síða — {author}" loading="lazy" decoding="async"></div><div class="story-caption"><h2>{author}</h2><span class="page-count">{count} síður</span></div><div class="story-bottom"><span data-progress-label>Opna söguna</span><span class="open-mark" aria-hidden="true"><svg><use href="#i-open"/></svg></span></div></a></article>')
-    letters=''.join(f'<img src="/ARCTIC/{story["pages"][0]["thumb"]["src"]}" width="{story["pages"][0]["thumb"]["width"]}" height="{story["pages"][0]["thumb"]["height"]}" alt="">' for story in stories[:2])
-    html=(ROOT/'templates/reader.html').read_text().replace('{{STORY_CARDS}}','\n'.join(cards)).replace('{{LETTER_PAGES}}',letters)
+    outline='<svg class="cover-outline" viewBox="0 0 300 425" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M8 8c52-6 106 3 155-1s91 0 129 1c5 59-2 106 2 160s-3 125 0 167q2 43-2 82c-57 6-107-3-156 1s-90-2-127 0c-5-55 2-104-2-158s2-104-1-155Q3 55 8 8Z"/></svg>'
+    bookmark='<svg class="story-bookmark" viewBox="0 0 24 38" aria-hidden="true"><path d="M4 3q8-3 16 0l-1 30-7-5-8 6Z"/><path d="m7 6 1 17"/></svg>'
+    for story in stories:
+        page=story['pages'][0];author=escape(story['author'])
+        cards.append(f'<article class="story-card" data-story="{story["id"]}"><a class="story-link" href="/?hofundur={story["id"]}&amp;sida=1" aria-label="Opna sögu — {author}"><div class="cover"><img src="/ARCTIC/{page["thumb"]["src"]}" srcset="/ARCTIC/{page["thumb"]["src"]} {page["thumb"]["width"]}w, /ARCTIC/{page["read"]["src"]} {page["read"]["width"]}w" sizes="(max-width: 580px) 90vw, (max-width: 1100px) 44vw, 30vw" width="{page["thumb"]["width"]}" height="{page["thumb"]["height"]}" alt="Fyrsta síða — {author}" loading="lazy" decoding="async">{outline}{bookmark}</div><div class="story-caption"><h2>{author}</h2><span class="story-trail" data-story-trail aria-hidden="true" hidden></span></div></a></article>')
+    html=(ROOT/'templates/reader.html').read_text().replace('{{STORY_CARDS}}','\n'.join(cards))
     assert '{{' not in html
     (ROOT/'index.html').write_text(html)
     # Keep every old author/page share link, without adding a history entry.
