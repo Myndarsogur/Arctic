@@ -1,23 +1,52 @@
-/* Export all lettering through the approved Lif artwork renderer. */
-import {readFile, writeFile} from 'node:fs/promises';
-const moduleURL = process.env.LIF_ARTWORK_MODULE || new URL('../../aron.dad/kynningarefni/letur/smidi/myndefni.mjs',import.meta.url).href;
-const {renderLifArtwork} = await import(moduleURL);
-const root = new URL('../',import.meta.url);
-const inline = async file => (await readFile(new URL(file,root),'utf8')).replace(/^<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'').replace(/<(title|desc)>[\s\S]*?<\/\1>/g,'');
-const map = await inline('assets/skraut/heimskaut.svg');
-const envelope = await inline('assets/skraut/umslag.svg');
-const art=renderLifArtwork(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-<rect width="1200" height="630" fill="#f6f1e3"/>
-<path d="M42 45 1155 43M45 583 1154 586" stroke="#2a2633" stroke-width="3"/>
-<g transform="translate(720 46) scale(.61)" opacity=".7">${map}</g>
-<g transform="translate(750 202) rotate(-7 200 150) scale(.67)">${envelope}</g>
+/* Approved Lif outlines for lettering, original Luke outlines for the name.
+   Chrome rasterizes the geographic paths; no live text or system fonts enter the image.
+   PLAYWRIGHT_MODULE=/path/to/package.json node scripts/build-og.mjs */
+import {readFile,writeFile} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+import {createRequire} from 'node:module';
+const moduleURL=process.env.LIF_ARTWORK_MODULE||new URL('../../aron.dad/kynningarefni/letur/smidi/myndefni.mjs',import.meta.url).href;
+const {renderLifArtwork}=await import(moduleURL);
+const {chromium}=createRequire(process.env.PLAYWRIGHT_MODULE||import.meta.url)('playwright');
+const root=new URL('../',import.meta.url);
+const inside=svg=>svg.replace(/^<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'').replace(/<(title|desc)>[\s\S]*?<\/\1>/g,'');
+const read=async file=>readFile(new URL(file,root),'utf8');
+const map=inside(await read('assets/skraut/heimskaut.svg'));
+const envelope=inside(await read('assets/skraut/umslag.svg'));
+const nameSVG=await read('assets/arctic-name.svg');
+const nameViewBox=nameSVG.match(/viewBox="([^"]+)"/)[1];
+const lettering=renderLifArtwork(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
 <text x="59" y="194" font-size="91" fill="#2a2633">Bréf frá</text>
 <text x="59" y="303" font-size="73" fill="#2a2633">heimskautinu.</text>
+<text x="61" y="399" font-size="27" fill="#655e6e">12 höfundar · 83 teiknaðar síður</text></svg>`);
+const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><title>Bréf frá heimskautinu · The Arctic Comics Journal</title>
+<rect width="1200" height="630" fill="#f6f1e3"/>
+<path d="M42 45 1155 43M45 583 1154 586" stroke="#2a2633" stroke-width="3"/>
+<svg x="720" y="46" width="439" height="439" viewBox="0 0 720 720" opacity=".7">${map}</svg>
+<g transform="translate(750 202) rotate(-7 200 150) scale(.67)">${envelope}</g>
 <path d="M63 338Q302 350 581 339" fill="none" stroke="#f6a5c9" stroke-width="11"/>
-<text x="61" y="399" font-size="27" fill="#655e6e">12 höfundar · 83 teiknaðar síður</text>
-<text x="61" y="530" font-size="24" fill="#2a2633">The Arctic Comics Journal</text>
-</svg>`);
-await writeFile(new URL('assets/bref-og.svg',root),art.svg);
-await writeFile(new URL('assets/bref-og.png',root),art.png);
-await writeFile(new URL('ogmynd.png',root),art.png);
-console.log(JSON.stringify({built:true,renderer:'approved Lif artwork, outlined lettering, no system fonts',pngBytes:art.png.length}));
+${inside(lettering.svg)}
+<svg x="61" y="488" width="585" height="62" viewBox="${nameViewBox}" fill="#2a2633">${inside(nameSVG)}</svg></svg>`;
+if(/<text\b/.test(svg))throw new Error('All distributed lettering must be outlined');
+await writeFile(new URL('assets/bref-og.svg',root),svg);
+const browser=await chromium.launch({channel:'chrome',headless:true});
+let png;
+try{
+ const page=await browser.newPage({viewport:{width:1200,height:630},deviceScaleFactor:1});
+ await page.goto(new URL('assets/bref-og.svg',root).href);
+ png=await page.screenshot({path:fileURLToPath(new URL('assets/bref-og.png',root))});
+}finally{await browser.close();}
+await writeFile(new URL('ogmynd.png',root),png);
+const mark=inside(await read('assets/arctic-mark.svg'));
+for(const file of ['apple-touch-icon.png','apple-icon.png','apple-icon-precomposed.png','apple-icon-57x57.png','apple-icon-60x60.png','apple-icon-72x72.png','apple-icon-76x76.png','apple-icon-114x114.png','apple-icon-120x120.png','apple-icon-144x144.png','apple-icon-152x152.png','apple-icon-180x180.png','android-icon-36x36.png','android-icon-48x48.png','android-icon-72x72.png','android-icon-96x96.png','android-icon-144x144.png','android-icon-192x192.png','android-chrome-192x192.png','android-chrome-512x512.png','favicon-16x16.png','favicon-32x32.png','favicon-96x96.png','ms-icon-70x70.png','ms-icon-144x144.png','ms-icon-150x150.png','ms-icon-310x310.png']){
+ const known={'apple-touch-icon.png':180,'apple-icon.png':192,'apple-icon-precomposed.png':192};
+ const size=known[file]||Number(file.match(/(\d+)x\d+/)[1]);
+ const icon=renderLifArtwork(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 512 512">${mark}</svg>`);
+ await writeFile(new URL(file,root),icon.png);
+}
+const sizes=[16,32,48];
+const entries=sizes.map(size=>renderLifArtwork(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 512 512">${mark}</svg>`).png);
+const directory=Buffer.alloc(6+16*entries.length);directory.writeUInt16LE(1,2);directory.writeUInt16LE(entries.length,4);
+let offset=directory.length;
+entries.forEach((entry,i)=>{const at=6+i*16;directory[at]=sizes[i];directory[at+1]=sizes[i];directory.writeUInt16LE(1,at+4);directory.writeUInt16LE(32,at+6);directory.writeUInt32LE(entry.length,at+8);directory.writeUInt32LE(offset,at+12);offset+=entry.length;});
+await writeFile(new URL('favicon.ico',root),Buffer.concat([directory,...entries]));
+console.log(JSON.stringify({built:true,renderer:'approved Lif + original Luke outlines, no system-font fallback',pngBytes:png.length}));

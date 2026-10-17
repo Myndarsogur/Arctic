@@ -4,7 +4,8 @@
   "credit": "Made with Natural Earth",
   "terms": "https://www.naturalearthdata.com/about/terms-of-use/",
   "licence": "Public domain",
-  "projection": "North-polar stereographic, central longitude -20 degrees; decorative extent 45–90 degrees north",
+  "projection": "North-polar stereographic, central longitude 115 degrees; decorative extent 45–90 degrees north",
   "arcticCircleLatitude": 66.56,
+  "artworkRotation": "135 degrees clockwise, so Iceland remains visible above and to the left of the envelope",
   "sha256": "9e0729ee253ca7d7a5c4ae9395fb1902264c5377c52e224d13dd85010e2835d9"
 }

@@ -2,8 +2,46 @@
 from pathlib import Path
 from math import radians, sin, cos, tan, pi
 import json
+from fontTools.ttLib import TTFont
+from fontTools.pens.svgPathPen import SVGPathPen
+from fontTools.pens.boundsPen import BoundsPen
 
 ROOT = Path(__file__).resolve().parents[1]
+
+def build_wordmarks():
+    """The project's original gothic Luke face, exported as outlines."""
+    font = TTFont(ROOT / 'Luke_thin_200.woff2')
+    glyphs = font.getGlyphSet()
+    cmap = font.getBestCmap()
+    em = font['head'].unitsPerEm
+    def mark(lines):
+        widths = [sum(font['hmtx'][cmap[ord(c)]][0] for c in line) for line in lines]
+        maximum = max(widths)
+        paths = []
+        bounds = []
+        for row, line in enumerate(lines):
+            x = (maximum - widths[row]) / 2
+            baseline = (1 + row * 1.05) * em
+            for char in line:
+                name = cmap[ord(char)]
+                pen = SVGPathPen(glyphs)
+                glyphs[name].draw(pen)
+                if pen.getCommands():
+                    paths.append(f'<path transform="translate({x:g} {baseline:g}) scale(1 -1)" d="{pen.getCommands()}"/>')
+                    box = BoundsPen(glyphs); glyphs[name].draw(box)
+                    if box.bounds:
+                        left,bottom,right,top = box.bounds
+                        bounds.append((left+x,baseline-top,right+x,baseline-bottom))
+                x += font['hmtx'][name][0]
+        left=min(b[0] for b in bounds)-em*.04; top=min(b[1] for b in bounds)-em*.04
+        width=max(b[2] for b in bounds)-left+em*.04; height=max(b[3] for b in bounds)-top+em*.04
+        return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{left:g} {top:g} {width:g} {height:g}" fill="#2a2633" data-font="Luke Medium200"><title>The Arctic Comics Journal</title>{"".join(paths)}</svg>'
+    (ROOT/'assets/arctic-wordmark.svg').write_text(mark(['The Arctic','Comics Journal']))
+    (ROOT/'assets/arctic-name.svg').write_text(mark(['The Arctic Comics Journal']))
+    letter=mark(['A'])
+    viewbox=letter.split('viewBox="')[1].split('"')[0]
+    inside=letter.split('</title>')[1].removesuffix('</svg>')
+    (ROOT/'assets/arctic-mark.svg').write_text(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="60" fill="#f6f1e3"/><svg x="80" y="58" width="352" height="396" viewBox="{viewbox}" fill="#2a2633">{inside}</svg></svg>')
 
 def build_skraut():
     out = ROOT / 'assets/skraut'
@@ -11,7 +49,8 @@ def build_skraut():
     data = json.loads((ROOT / 'scripts/data/ne_110m_land.geojson').read_text())
     def project(lon, lat):
         r = 320 * tan(pi / 4 - radians(lat) / 2) / tan(pi / 8)
-        theta = radians(lon + 20)
+        # Turn Iceland toward the open upper-left part of the composition.
+        theta = radians(lon - 115)
         return 360 + r * sin(theta), 360 + r * cos(theta)
     paths = []
     for feature in data['features']:
@@ -54,6 +93,7 @@ def build_skraut():
 <path d="m314 289 4 15 15 5-15 4-4 15-5-15-14-4 14-5Z" fill="none" stroke="#e3a086" stroke-width="2"/>
 <path d="m310 288 2 13 16 4m-5 25 9-8" fill="none" stroke="#7e3738" stroke-width="1.5"/>
 </g></svg>''')
+    build_wordmarks()
 
 if __name__ == '__main__':
     build_skraut()

@@ -23,10 +23,11 @@ const bodies=Object.fromEntries(await Promise.all(['is','en'].map(async lang=>[l
 for(const html of Object.values(bodies)){
  for(const key of substantive)assert.ok(html.includes(`data-source-key="${key}"`),key);
  for(const [key,href]of Object.entries(source.links).filter(([key])=>key.startsWith('partner-')||key.startsWith('contact-')||key==='cta-primary'))assert.ok(html.includes(href.replaceAll('&','&amp;')),key);
- assert.ok(html.includes('/logo.png'));
+ assert.ok(html.includes('/assets/arctic-wordmark.svg'));
+ assert.ok(!html.includes('src="/logo.png"'));
 }
 assert.ok(!(await readFile(path.join(root,'assets/bref-og.svg'),'utf8')).includes('<text'));
-pass('All substantive former homepage sections, original illustration and collaboration links preserved in both languages');
+pass('All substantive former homepage text and collaboration links preserved; requested gothic wordmark replaces the iceberg');
 for(const [engine,label]of[[chromium,'Chrome'],[webkit,'WebKit']]){
  const b=await engine.launch({headless:true,...(label==='Chrome'?{channel:'chrome'}:{})});
  try{
@@ -43,11 +44,22 @@ for(const [engine,label]of[[chromium,'Chrome'],[webkit,'WebKit']]){
     assert.equal(await p.evaluate(()=>document.fonts.check('24px Lif','ÁÐÉÍÓÖÞÆÚÝáéíóöþæúýð')),true);
     const headingFont=await p.locator('h1').first().evaluate(h=>getComputedStyle(h).fontFamily);
     assert.ok(headingFont.includes('Lif'));
+    assert.ok((await p.locator('.brand').evaluate(h=>getComputedStyle(h).fontFamily)).includes('ArcticLuke'));
     if(route===''){
      assert.equal(await p.locator('.story-card').count(),12);
      assert.equal(await p.locator('.project-link').getAttribute('href'),'/handbok/');
      assert.equal(await p.locator('.mail-art .polar-map').isVisible(),true);
      assert.equal(await p.locator('.mail-art .envelope').isVisible(),true);
+     await p.waitForFunction(()=>[...document.querySelectorAll('.mail-art img')].every(i=>i.complete&&i.naturalWidth>0));
+     const icelandClear=await p.evaluate(()=>{
+      const map=document.querySelector('.mail-art .polar-map'),parent=map.parentElement.getBoundingClientRect(),css=getComputedStyle(map);
+      const w=parseFloat(css.width),h=parseFloat(css.height),theta=(-19-115)*Math.PI/180;
+      const r=320*Math.tan(Math.PI/4-65*Math.PI/360)/Math.tan(Math.PI/8);
+      const x=(360+r*Math.sin(theta))/720*w-w/2,y=(360+r*Math.cos(theta))/720*h-h/2;
+      const m=new DOMMatrix(css.transform),px=parent.left+parseFloat(css.left)+w/2+m.a*x+m.c*y,py=parent.top+parseFloat(css.top)+h/2+m.b*x+m.d*y;
+      return [...document.querySelectorAll('.mail-art .envelope,.letter-pages img')].every(i=>{const b=i.getBoundingClientRect();return px<b.left||px>b.right||py<b.top||py>b.bottom;});
+     });
+     assert.equal(icelandClear,true,`${label} ${width}: Iceland must remain outside the envelope and letter images`);
     }else{
      assert.equal(await p.locator('.book-chapter').count(),6);
      assert.equal(await p.locator('.partner-links a').count(),8);
