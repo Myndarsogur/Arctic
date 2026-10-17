@@ -1,0 +1,1089 @@
+{
+  "collection": "Bréf frá heimskautinu",
+  "source": "ARCTIC/index.html",
+  "sourceCommit": "c5c79c21e037139d0ca27f3f1e9fa19c5ca0b491",
+  "sourceSHA256": "4c572b25acc61471e5f40ce5de4dfddf1c4c1f318d0cf66e53d67b25c9b25eaa",
+  "stories": [
+    {
+      "legacyKey": "breki",
+      "id": "breki",
+      "author": "Breki",
+      "pages": [
+        {
+          "number": 1,
+          "sourceURL": "https://imgur.com/g0glydf.jpeg",
+          "imageId": "g0glydf",
+          "downloadURL": "https://i.imgur.com/g0glydf.jpeg",
+          "original": "sidur/breki/01-frum.jpg",
+          "sha256": "0b77e95ee19598e555561c4260ad7c5643b835375cc5239ff68a2e2fec1f9fac",
+          "bytes": 5022992,
+          "width": 2894,
+          "height": 4093,
+          "format": "JPEG"
+        },
+        {
+          "number": 2,
+          "sourceURL": "https://imgur.com/C3ZEjQS.jpeg",
+          "imageId": "C3ZEjQS",
+          "downloadURL": "https://i.imgur.com/C3ZEjQS.jpeg",
+          "original": "sidur/breki/02-frum.jpg",
+          "sha256": "d834d0213bc363ac713b32a97e8489457c5ebe38c29f6c409e93d44e1356acd7",
+          "bytes": 3929977,
+          "width": 2894,
+          "height": 4093,
+          "format": "JPEG"
+        },
+        {
+          "number": 3,
+          "sourceURL": "https://imgur.com/cLMlZ9f.jpeg",
+          "imageId": "cLMlZ9f",
+          "downloadURL": "https://i.imgur.com/cLMlZ9f.jpeg",
+          "original": "sidur/breki/03-frum.jpg",
+          "sha256": "89e5d2080bf21222521d5c8b503b543f974ae49dd9b8ca0ee08f027e29e4e109",
+          "bytes": 5070774,
+          "width": 2894,
+          "height": 4093,
+          "format": "JPEG"
+        },
+        {
+          "number": 4,
+          "sourceURL": "https://imgur.com/C4oBGpz.jpeg",
+          "imageId": "C4oBGpz",
+          "downloadURL": "https://i.imgur.com/C4oBGpz.jpeg",
+          "original": "sidur/breki/04-frum.jpg",
+          "sha256": "9dd26497b6abc8d77d03498f6d1c146dceaaa9b8601e3a527826a8c95dde2a5b",
+          "bytes": 3254651,
+          "width": 2894,
+          "height": 4093,
+          "format": "JPEG"
+        },
+        {
+          "number": 5,
+          "sourceURL": "https://imgur.com/TN8DH32.jpeg",
+          "imageId": "TN8DH32",
+          "downloadURL": "https://i.imgur.com/TN8DH32.jpeg",
+          "original": "sidur/breki/05-frum.jpg",
+          "sha256": "a27ffe1a3ea88355e37c8415d2a306ee8298c3e5cdab01a3e5a6d2985491971f",
+          "bytes": 3861647,
+          "width": 2894,
+          "height": 4093,
+          "format": "JPEG"
+        },
+        {
+          "number": 6,
+          "sourceURL": "https://imgur.com/06BEWFM.jpeg",
+          "imageId": "06BEWFM",
+          "downloadURL": "https://i.imgur.com/06BEWFM.jpeg",
+          "original": "sidur/breki/06-frum.jpg",
+          "sha256": "e2b217ddb65c3aafaba952aec26bbd0094ced398d1618d2f39ca84fcde5ebe4f",
+          "bytes": 4366653,
+          "width": 2894,
+          "height": 4093,
+          "format": "JPEG"
+        },
+        {
+          "number": 7,
+          "sourceURL": "https://imgur.com/In1Bc5G.jpeg",
+          "imageId": "In1Bc5G",
+          "downloadURL": "https://i.imgur.com/In1Bc5G.jpeg",
+          "original": "sidur/breki/07-frum.jpg",
+          "sha256": "01f7e9b019790f68e6c5401dbfb23819ecb3967b056691277f74c72a590c4f19",
+          "bytes": 4247991,
+          "width": 2894,
+          "height": 4093,
+          "format": "JPEG"
+        },
+        {
+          "number": 8,
+          "sourceURL": "https://imgur.com/k1jYTFg.jpeg",
+          "imageId": "k1jYTFg",
+          "downloadURL": "https://i.imgur.com/k1jYTFg.jpeg",
+          "original": "sidur/breki/08-frum.jpg",
+          "sha256": "1f2f533b8c8cecc847a14aa79966bd46adb155ee607105b4e9efcb8e364603a6",
+          "bytes": 4970634,
+          "width": 2894,
+          "height": 4093,
+          "format": "JPEG"
+        }
+      ]
+    },
+    {
+      "legacyKey": "elva",
+      "id": "elva",
+      "author": "Elva",
+      "pages": [
+        {
+          "number": 1,
+          "sourceURL": "https://imgur.com/ftutJ2Y.jpeg",
+          "imageId": "ftutJ2Y",
+          "downloadURL": "https://i.imgur.com/ftutJ2Y.jpeg",
+          "original": "sidur/elva/01-frum.jpg",
+          "sha256": "f5e673ea10d86214e78d0f93e431d0763490a650a2e867625dfe973f76e62c5d",
+          "bytes": 1466133,
+          "width": 2923,
+          "height": 4134,
+          "format": "JPEG"
+        },
+        {
+          "number": 2,
+          "sourceURL": "https://imgur.com/rKF1VFt.jpeg",
+          "imageId": "rKF1VFt",
+          "downloadURL": "https://i.imgur.com/rKF1VFt.jpeg",
+          "original": "sidur/elva/02-frum.jpg",
+          "sha256": "5ddea38b0418f774cc4c02f58871d1d8c5890ba20d851f5191907f1eca3646df",
+          "bytes": 1557239,
+          "width": 2923,
+          "height": 4134,
+          "format": "JPEG"
+        },
+        {
+          "number": 3,
+          "sourceURL": "https://imgur.com/neQNIVv.jpeg",
+          "imageId": "neQNIVv",
+          "downloadURL": "https://i.imgur.com/neQNIVv.jpeg",
+          "original": "sidur/elva/03-frum.jpg",
+          "sha256": "f4a6f8f2c39ffe351a5e4a92257be04cefdf6ef1a83d87c46f4d67ac08c7bf31",
+          "bytes": 1215853,
+          "width": 2923,
+          "height": 4134,
+          "format": "JPEG"
+        },
+        {
+          "number": 4,
+          "sourceURL": "https://imgur.com/PuJAGMp.jpeg",
+          "imageId": "PuJAGMp",
+          "downloadURL": "https://i.imgur.com/PuJAGMp.jpeg",
+          "original": "sidur/elva/04-frum.jpg",
+          "sha256": "d0ad701a53585f19c7896d7c6fdd7e3b6a8959c86764be9922ae80086e423a87",
+          "bytes": 1384919,
+          "width": 2923,
+          "height": 4134,
+          "format": "JPEG"
+        },
+        {
+          "number": 5,
+          "sourceURL": "https://imgur.com/fcwERTU.jpeg",
+          "imageId": "fcwERTU",
+          "downloadURL": "https://i.imgur.com/fcwERTU.jpeg",
+          "original": "sidur/elva/05-frum.jpg",
+          "sha256": "402ad10f179096abd303d711e208d7ad8de2a603458c9edc80a11187d9a26eba",
+          "bytes": 1519458,
+          "width": 2923,
+          "height": 4134,
+          "format": "JPEG"
+        },
+        {
+          "number": 6,
+          "sourceURL": "https://imgur.com/CxI13u6.jpeg",
+          "imageId": "CxI13u6",
+          "downloadURL": "https://i.imgur.com/CxI13u6.jpeg",
+          "original": "sidur/elva/06-frum.jpg",
+          "sha256": "008a427bcb8d9751fe0da3f3d550526ba28f2bfa7aad6a3437d1a8fda8639c45",
+          "bytes": 2564118,
+          "width": 3508,
+          "height": 4961,
+          "format": "JPEG"
+        }
+      ]
+    },
+    {
+      "legacyKey": "embla",
+      "id": "embla",
+      "author": "Embla Eir",
+      "pages": [
+        {
+          "number": 1,
+          "sourceURL": "https://imgur.com/IFMevhF.jpeg",
+          "imageId": "IFMevhF",
+          "downloadURL": "https://i.imgur.com/IFMevhF.jpeg",
+          "original": "sidur/embla/01-frum.jpg",
+          "sha256": "0b4a8e38eb476ae59a3f870afebee9dc343d1913b341506f16b83949d17ceb7d",
+          "bytes": 2009553,
+          "width": 2480,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 2,
+          "sourceURL": "https://imgur.com/dFVUTy4.jpeg",
+          "imageId": "dFVUTy4",
+          "downloadURL": "https://i.imgur.com/dFVUTy4.jpeg",
+          "original": "sidur/embla/02-frum.jpg",
+          "sha256": "56201d42ca1e236a033a5303815d8788d31712807a4cff1af796db4b879f66f2",
+          "bytes": 1953190,
+          "width": 2480,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 3,
+          "sourceURL": "https://imgur.com/YmSq4T6.jpeg",
+          "imageId": "YmSq4T6",
+          "downloadURL": "https://i.imgur.com/YmSq4T6.jpeg",
+          "original": "sidur/embla/03-frum.jpg",
+          "sha256": "4da5aa8efab93bb4232c61117146dce83b901b1d85ef4fe241df8fc6b942cae9",
+          "bytes": 2197881,
+          "width": 2480,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 4,
+          "sourceURL": "https://imgur.com/kJuatY8.jpeg",
+          "imageId": "kJuatY8",
+          "downloadURL": "https://i.imgur.com/kJuatY8.jpeg",
+          "original": "sidur/embla/04-frum.jpg",
+          "sha256": "51f381606b6c2484676e533d513b82fdaf345d39695db6e23363cecee0cb46e2",
+          "bytes": 1861182,
+          "width": 2480,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 5,
+          "sourceURL": "https://imgur.com/lrWsGSQ.jpeg",
+          "imageId": "lrWsGSQ",
+          "downloadURL": "https://i.imgur.com/lrWsGSQ.jpeg",
+          "original": "sidur/embla/05-frum.jpg",
+          "sha256": "ee04b11a4c18fece2e4338a25f8cf7e75da69ca787f571c18ad2e74046ca0bd7",
+          "bytes": 2375307,
+          "width": 2480,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 6,
+          "sourceURL": "https://imgur.com/f3ZQBBX.jpeg",
+          "imageId": "f3ZQBBX",
+          "downloadURL": "https://i.imgur.com/f3ZQBBX.jpeg",
+          "original": "sidur/embla/06-frum.jpg",
+          "sha256": "b037b06a306d42a525080e80f2292dde4b8c3bb1c45c1dd8cf73d060d46b4864",
+          "bytes": 2177116,
+          "width": 2480,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 7,
+          "sourceURL": "https://imgur.com/Jq8I2qD.jpeg",
+          "imageId": "Jq8I2qD",
+          "downloadURL": "https://i.imgur.com/Jq8I2qD.jpeg",
+          "original": "sidur/embla/07-frum.jpg",
+          "sha256": "195e855c864a81025c124c5344c6a9956dac25d9c6abbbc9b9bc57e82394ed65",
+          "bytes": 2236566,
+          "width": 2480,
+          "height": 3508,
+          "format": "JPEG"
+        }
+      ]
+    },
+    {
+      "legacyKey": "erla",
+      "id": "erla",
+      "author": "Erla",
+      "pages": [
+        {
+          "number": 1,
+          "sourceURL": "https://imgur.com/NlHVGQh.jpeg",
+          "imageId": "NlHVGQh",
+          "downloadURL": "https://i.imgur.com/NlHVGQh.jpeg",
+          "original": "sidur/erla/01-frum.jpg",
+          "sha256": "f7d99bc80cc1648da348b7c6bfd0c2cfe803264538f0bc10ab51efda89666a1f",
+          "bytes": 2608813,
+          "width": 3497,
+          "height": 4944,
+          "format": "JPEG"
+        },
+        {
+          "number": 2,
+          "sourceURL": "https://imgur.com/oVdbDi8.jpeg",
+          "imageId": "oVdbDi8",
+          "downloadURL": "https://i.imgur.com/oVdbDi8.jpeg",
+          "original": "sidur/erla/02-frum.jpg",
+          "sha256": "110f72058f0c00aa658630b090fdf56ad3a6a8387e8e74221c80aeaad48d94e6",
+          "bytes": 3716246,
+          "width": 3497,
+          "height": 4944,
+          "format": "JPEG"
+        },
+        {
+          "number": 3,
+          "sourceURL": "https://imgur.com/YuGJ6OT.jpeg",
+          "imageId": "YuGJ6OT",
+          "downloadURL": "https://i.imgur.com/YuGJ6OT.jpeg",
+          "original": "sidur/erla/03-frum.jpg",
+          "sha256": "cfa97024692f3629f83b21bf2093ddc048b1b5c9326b5a952f1eb4e2e67b1d2f",
+          "bytes": 4400211,
+          "width": 3497,
+          "height": 4944,
+          "format": "JPEG"
+        },
+        {
+          "number": 4,
+          "sourceURL": "https://imgur.com/IZXu7oJ.jpeg",
+          "imageId": "IZXu7oJ",
+          "downloadURL": "https://i.imgur.com/IZXu7oJ.jpeg",
+          "original": "sidur/erla/04-frum.jpg",
+          "sha256": "2fb4b633e748a20c68ec161c0a66d1f74d27586051f9eb36cf8e02fa0412129c",
+          "bytes": 2529190,
+          "width": 3497,
+          "height": 4944,
+          "format": "JPEG"
+        },
+        {
+          "number": 5,
+          "sourceURL": "https://imgur.com/Idz1urz.jpeg",
+          "imageId": "Idz1urz",
+          "downloadURL": "https://i.imgur.com/Idz1urz.jpeg",
+          "original": "sidur/erla/05-frum.jpg",
+          "sha256": "bbd878e8d2d2d013a10a8b865c867786e76e90a00c0df14edaae21985ad43a45",
+          "bytes": 2906981,
+          "width": 3497,
+          "height": 4944,
+          "format": "JPEG"
+        },
+        {
+          "number": 6,
+          "sourceURL": "https://imgur.com/N05JPhr.jpeg",
+          "imageId": "N05JPhr",
+          "downloadURL": "https://i.imgur.com/N05JPhr.jpeg",
+          "original": "sidur/erla/06-frum.jpg",
+          "sha256": "20a4a37f7e277128e8626327713733f09d56eb7c25679a37aa7234ec8d8a105a",
+          "bytes": 2673851,
+          "width": 3497,
+          "height": 4944,
+          "format": "JPEG"
+        },
+        {
+          "number": 7,
+          "sourceURL": "https://imgur.com/S1yVkgv.jpeg",
+          "imageId": "S1yVkgv",
+          "downloadURL": "https://i.imgur.com/S1yVkgv.jpeg",
+          "original": "sidur/erla/07-frum.jpg",
+          "sha256": "f497e36b280886cfebd2a5636a8e2ce1f68c7cfafbca3a0542529ad0d508d183",
+          "bytes": 1391878,
+          "width": 3497,
+          "height": 4944,
+          "format": "JPEG"
+        },
+        {
+          "number": 8,
+          "sourceURL": "https://imgur.com/9L5JwsQ.jpeg",
+          "imageId": "9L5JwsQ",
+          "downloadURL": "https://i.imgur.com/9L5JwsQ.jpeg",
+          "original": "sidur/erla/08-frum.jpg",
+          "sha256": "101facbf70fa2eeeea6e956058f3d33a21c02699f1e534b17de2fc9acf27fb22",
+          "bytes": 3981608,
+          "width": 3497,
+          "height": 4944,
+          "format": "JPEG"
+        }
+      ]
+    },
+    {
+      "legacyKey": "gudmundur",
+      "id": "gudmundur",
+      "author": "Guðmundur",
+      "pages": [
+        {
+          "number": 1,
+          "sourceURL": "https://imgur.com/RxuQfAc.jpeg",
+          "imageId": "RxuQfAc",
+          "downloadURL": "https://i.imgur.com/RxuQfAc.jpeg",
+          "original": "sidur/gudmundur/01-frum.jpg",
+          "sha256": "bf60f93e283f4dc89d9bb0b96449dad622e3380afde4409e7a9503e2f0830cea",
+          "bytes": 4185464,
+          "width": 4666,
+          "height": 6598,
+          "format": "JPEG"
+        },
+        {
+          "number": 2,
+          "sourceURL": "https://imgur.com/xJPLVNP.jpeg",
+          "imageId": "xJPLVNP",
+          "downloadURL": "https://i.imgur.com/xJPLVNP.jpeg",
+          "original": "sidur/gudmundur/02-frum.jpg",
+          "sha256": "1a6d8d35baad9e4b543447f2fc9f35b78e4938d4ac5bc8d48bd3d6b5dd30503c",
+          "bytes": 2415623,
+          "width": 3536,
+          "height": 5000,
+          "format": "JPEG"
+        },
+        {
+          "number": 3,
+          "sourceURL": "https://imgur.com/IDFgvkI.jpeg",
+          "imageId": "IDFgvkI",
+          "downloadURL": "https://i.imgur.com/IDFgvkI.jpeg",
+          "original": "sidur/gudmundur/03-frum.jpg",
+          "sha256": "ef755260cfe6993f8ae50f977ce624ee52a43957e1588fd873b2af1f9bb3e0d6",
+          "bytes": 2726869,
+          "width": 4666,
+          "height": 6598,
+          "format": "JPEG"
+        },
+        {
+          "number": 4,
+          "sourceURL": "https://imgur.com/o6fU4DM.jpeg",
+          "imageId": "o6fU4DM",
+          "downloadURL": "https://i.imgur.com/o6fU4DM.jpeg",
+          "original": "sidur/gudmundur/04-frum.jpg",
+          "sha256": "8651ce01124566e089eb122e8053fbe1533c7486bec96e72ce20f20470b59b98",
+          "bytes": 4586029,
+          "width": 4666,
+          "height": 6598,
+          "format": "JPEG"
+        },
+        {
+          "number": 5,
+          "sourceURL": "https://imgur.com/g1OP0HQ.jpeg",
+          "imageId": "g1OP0HQ",
+          "downloadURL": "https://i.imgur.com/g1OP0HQ.jpeg",
+          "original": "sidur/gudmundur/05-frum.jpg",
+          "sha256": "586d66626ad6b14d357d5bbc974a4cc2877f56e4b0dae531d4d994b2c183c7ae",
+          "bytes": 4980778,
+          "width": 4666,
+          "height": 6598,
+          "format": "JPEG"
+        },
+        {
+          "number": 6,
+          "sourceURL": "https://imgur.com/rGBezr7.jpeg",
+          "imageId": "rGBezr7",
+          "downloadURL": "https://i.imgur.com/rGBezr7.jpeg",
+          "original": "sidur/gudmundur/06-frum.jpg",
+          "sha256": "3b741c1d897fc1d0f899a6b76c711a511f95399a59c7aee4f7e1957bf49880de",
+          "bytes": 4008598,
+          "width": 4666,
+          "height": 6598,
+          "format": "JPEG"
+        }
+      ]
+    },
+    {
+      "legacyKey": "krummi",
+      "id": "krummi",
+      "author": "Krummi",
+      "pages": [
+        {
+          "number": 1,
+          "sourceURL": "https://imgur.com/ofXJsEy.jpeg",
+          "imageId": "ofXJsEy",
+          "downloadURL": "https://i.imgur.com/ofXJsEy.jpeg",
+          "original": "sidur/krummi/01-frum.jpg",
+          "sha256": "755146637f2377c8500d021d8711e1584d1a219a1a824acc7673bd51838a8c88",
+          "bytes": 829923,
+          "width": 3507,
+          "height": 4960,
+          "format": "JPEG"
+        },
+        {
+          "number": 2,
+          "sourceURL": "https://imgur.com/8eBzjoA.jpeg",
+          "imageId": "8eBzjoA",
+          "downloadURL": "https://i.imgur.com/8eBzjoA.jpeg",
+          "original": "sidur/krummi/02-frum.jpg",
+          "sha256": "24f7a18f56e8e4354c99fbe085c225c885b03ad76e4acf48d4e351fbb7fc323f",
+          "bytes": 1025902,
+          "width": 3507,
+          "height": 4960,
+          "format": "JPEG"
+        },
+        {
+          "number": 3,
+          "sourceURL": "https://imgur.com/xazeaV6.jpeg",
+          "imageId": "xazeaV6",
+          "downloadURL": "https://i.imgur.com/xazeaV6.jpeg",
+          "original": "sidur/krummi/03-frum.jpg",
+          "sha256": "b5030dca75f3af9481a44d454f0c1efd0753a3e210d798f9ed32996ca01121f6",
+          "bytes": 1008548,
+          "width": 3507,
+          "height": 4960,
+          "format": "JPEG"
+        },
+        {
+          "number": 4,
+          "sourceURL": "https://imgur.com/b62dbBZ.jpeg",
+          "imageId": "b62dbBZ",
+          "downloadURL": "https://i.imgur.com/b62dbBZ.jpeg",
+          "original": "sidur/krummi/04-frum.jpg",
+          "sha256": "fd763e5399decb5a2fb301b413cebbf8abbc2e4a41c41703d1f2059999eb3aba",
+          "bytes": 1514471,
+          "width": 3507,
+          "height": 4960,
+          "format": "JPEG"
+        },
+        {
+          "number": 5,
+          "sourceURL": "https://imgur.com/Dx0i1nS.jpeg",
+          "imageId": "Dx0i1nS",
+          "downloadURL": "https://i.imgur.com/Dx0i1nS.jpeg",
+          "original": "sidur/krummi/05-frum.jpg",
+          "sha256": "76a5cb6e886361d75eb98bb08225f761ff5ca91d95d9f29602d0c5e050f024e7",
+          "bytes": 1207161,
+          "width": 3507,
+          "height": 4960,
+          "format": "JPEG"
+        },
+        {
+          "number": 6,
+          "sourceURL": "https://imgur.com/2YpqUrH.jpeg",
+          "imageId": "2YpqUrH",
+          "downloadURL": "https://i.imgur.com/2YpqUrH.jpeg",
+          "original": "sidur/krummi/06-frum.jpg",
+          "sha256": "8cb8a326e35d05b60abedd6a6862125f9d40ac1d0741a69cd9799128cca255d1",
+          "bytes": 1088223,
+          "width": 3507,
+          "height": 4960,
+          "format": "JPEG"
+        },
+        {
+          "number": 7,
+          "sourceURL": "https://imgur.com/S1EuTXV.jpeg",
+          "imageId": "S1EuTXV",
+          "downloadURL": "https://i.imgur.com/S1EuTXV.jpeg",
+          "original": "sidur/krummi/07-frum.png",
+          "sha256": "d6c7870871d1156f748791becd1017667e3c2c65b2c874f69f0445eab64c2e93",
+          "bytes": 3797907,
+          "width": 3507,
+          "height": 4960,
+          "format": "PNG"
+        },
+        {
+          "number": 8,
+          "sourceURL": "https://imgur.com/fgshGGW.jpeg",
+          "imageId": "fgshGGW",
+          "downloadURL": "https://i.imgur.com/fgshGGW.jpeg",
+          "original": "sidur/krummi/08-frum.jpg",
+          "sha256": "9c78b7e78f687bef7b3ce8fdf590aed00a18314b9a965d3b459cd5e744cae6fe",
+          "bytes": 866204,
+          "width": 3507,
+          "height": 4960,
+          "format": "JPEG"
+        }
+      ]
+    },
+    {
+      "legacyKey": "mani",
+      "id": "mani",
+      "author": "Máni",
+      "pages": [
+        {
+          "number": 1,
+          "sourceURL": "https://imgur.com/UerRRiR.jpeg",
+          "imageId": "UerRRiR",
+          "downloadURL": "https://i.imgur.com/UerRRiR.jpeg",
+          "original": "sidur/mani/01-frum.jpg",
+          "sha256": "48fa9a95b144a0a88248736377a841947566cce3ccb175675abe23aac64d4738",
+          "bytes": 411678,
+          "width": 1080,
+          "height": 1524,
+          "format": "JPEG"
+        },
+        {
+          "number": 2,
+          "sourceURL": "https://imgur.com/o7m3Ee7.jpeg",
+          "imageId": "o7m3Ee7",
+          "downloadURL": "https://i.imgur.com/o7m3Ee7.jpeg",
+          "original": "sidur/mani/02-frum.jpg",
+          "sha256": "dbe225b8980bd4d4b70ee07e2ec530a6454f9c2ab2436c56adff31124ca3cc3f",
+          "bytes": 446489,
+          "width": 1080,
+          "height": 1527,
+          "format": "JPEG"
+        },
+        {
+          "number": 3,
+          "sourceURL": "https://imgur.com/2lYkoa6.jpeg",
+          "imageId": "2lYkoa6",
+          "downloadURL": "https://i.imgur.com/2lYkoa6.jpeg",
+          "original": "sidur/mani/03-frum.jpg",
+          "sha256": "2ec3b12194a1d450c018ffe813604bc28b4aeda103c417cc352eca26c9509b4a",
+          "bytes": 335804,
+          "width": 1080,
+          "height": 1511,
+          "format": "JPEG"
+        },
+        {
+          "number": 4,
+          "sourceURL": "https://imgur.com/HQLyJ6N.jpeg",
+          "imageId": "HQLyJ6N",
+          "downloadURL": "https://i.imgur.com/HQLyJ6N.jpeg",
+          "original": "sidur/mani/04-frum.jpg",
+          "sha256": "b3c67b5b931f2818c6eeab12579cb749c12b028a80e9cfc21875b57dbd572325",
+          "bytes": 307720,
+          "width": 1080,
+          "height": 1521,
+          "format": "JPEG"
+        },
+        {
+          "number": 5,
+          "sourceURL": "https://imgur.com/VZTdmUF.jpeg",
+          "imageId": "VZTdmUF",
+          "downloadURL": "https://i.imgur.com/VZTdmUF.jpeg",
+          "original": "sidur/mani/05-frum.jpg",
+          "sha256": "7b5eab5566aaae25abef5b25b3bc3a955bae1128cb88ddf2843c8d5487b215ae",
+          "bytes": 413356,
+          "width": 1080,
+          "height": 1526,
+          "format": "JPEG"
+        },
+        {
+          "number": 6,
+          "sourceURL": "https://imgur.com/9zzu6XL.jpeg",
+          "imageId": "9zzu6XL",
+          "downloadURL": "https://i.imgur.com/9zzu6XL.jpeg",
+          "original": "sidur/mani/06-frum.jpg",
+          "sha256": "7bdb2f08a4f077759df2f795ea58a7f893bc58faac8f7b13e0634918dd321260",
+          "bytes": 423184,
+          "width": 1080,
+          "height": 1525,
+          "format": "JPEG"
+        },
+        {
+          "number": 7,
+          "sourceURL": "https://imgur.com/0ngWJEx.jpeg",
+          "imageId": "0ngWJEx",
+          "downloadURL": "https://i.imgur.com/0ngWJEx.jpeg",
+          "original": "sidur/mani/07-frum.jpg",
+          "sha256": "06c51b75a649a56ddabb1136ad69ba53c507857b9f011791044020eec4075966",
+          "bytes": 362837,
+          "width": 1080,
+          "height": 1511,
+          "format": "JPEG"
+        }
+      ]
+    },
+    {
+      "legacyKey": "moira",
+      "id": "moira",
+      "author": "Moira",
+      "pages": [
+        {
+          "number": 1,
+          "sourceURL": "https://imgur.com/PXkxJjL.jpeg",
+          "imageId": "PXkxJjL",
+          "downloadURL": "https://i.imgur.com/PXkxJjL.jpeg",
+          "original": "sidur/moira/01-frum.png",
+          "sha256": "ac80ec0546d2c8b4101620093a0e5daf16a16d5416086123e87d581fd1ff8041",
+          "bytes": 3264394,
+          "width": 2480,
+          "height": 3508,
+          "format": "PNG"
+        },
+        {
+          "number": 2,
+          "sourceURL": "https://imgur.com/lZl1JSd.jpeg",
+          "imageId": "lZl1JSd",
+          "downloadURL": "https://i.imgur.com/lZl1JSd.jpeg",
+          "original": "sidur/moira/02-frum.png",
+          "sha256": "ce8f1089767171a2302b985c7bf735f77e4fdc27dfa79425c06c57ad6219e4e2",
+          "bytes": 2524785,
+          "width": 2480,
+          "height": 3508,
+          "format": "PNG"
+        },
+        {
+          "number": 3,
+          "sourceURL": "https://imgur.com/bOPZ2Lf.jpeg",
+          "imageId": "bOPZ2Lf",
+          "downloadURL": "https://i.imgur.com/bOPZ2Lf.jpeg",
+          "original": "sidur/moira/03-frum.png",
+          "sha256": "5111f9b50b2fb0a60fe6251ef859f21097d1e3561f60ec1d14b95a91204cf622",
+          "bytes": 1993876,
+          "width": 2480,
+          "height": 3508,
+          "format": "PNG"
+        },
+        {
+          "number": 4,
+          "sourceURL": "https://imgur.com/wjQ0PYY.jpeg",
+          "imageId": "wjQ0PYY",
+          "downloadURL": "https://i.imgur.com/wjQ0PYY.jpeg",
+          "original": "sidur/moira/04-frum.png",
+          "sha256": "37f72688dc7c298d4f7af6605d0eb187aa7d843d7e65ae89f617c9c0779a76b9",
+          "bytes": 2682321,
+          "width": 2480,
+          "height": 3508,
+          "format": "PNG"
+        },
+        {
+          "number": 5,
+          "sourceURL": "https://imgur.com/IvbruBX.jpeg",
+          "imageId": "IvbruBX",
+          "downloadURL": "https://i.imgur.com/IvbruBX.jpeg",
+          "original": "sidur/moira/05-frum.png",
+          "sha256": "3fb394ef8d598e757a67a544b618731e07dd17f9e401defce095f0497fc84b23",
+          "bytes": 2522658,
+          "width": 2480,
+          "height": 3508,
+          "format": "PNG"
+        }
+      ]
+    },
+    {
+      "legacyKey": "tinna",
+      "id": "tinna",
+      "author": "Tinna Maren",
+      "pages": [
+        {
+          "number": 1,
+          "sourceURL": "https://imgur.com/TRIUGJ5.jpeg",
+          "imageId": "TRIUGJ5",
+          "downloadURL": "https://i.imgur.com/TRIUGJ5.jpeg",
+          "original": "sidur/tinna/01-frum.jpg",
+          "sha256": "a95978d2181dd5834e30b8a53aeaa0697d33fbdfe406c0b60c436c099df3398d",
+          "bytes": 1871280,
+          "width": 2430,
+          "height": 3467,
+          "format": "JPEG"
+        },
+        {
+          "number": 2,
+          "sourceURL": "https://imgur.com/SZllwUv.jpeg",
+          "imageId": "SZllwUv",
+          "downloadURL": "https://i.imgur.com/SZllwUv.jpeg",
+          "original": "sidur/tinna/02-frum.jpg",
+          "sha256": "1b3fc786f39ff714b9b02ec053957c0bf3ddb0791cd1caacce540ac03855d9a9",
+          "bytes": 3841091,
+          "width": 2539,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 3,
+          "sourceURL": "https://imgur.com/gEHBEmY.jpeg",
+          "imageId": "gEHBEmY",
+          "downloadURL": "https://i.imgur.com/gEHBEmY.jpeg",
+          "original": "sidur/tinna/03-frum.jpg",
+          "sha256": "ff3c0c2e36041b64705b9dded69bebf1e2ad05770ac25a804911f48752e4c845",
+          "bytes": 4099735,
+          "width": 2539,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 4,
+          "sourceURL": "https://imgur.com/T4ekEcW.jpeg",
+          "imageId": "T4ekEcW",
+          "downloadURL": "https://i.imgur.com/T4ekEcW.jpeg",
+          "original": "sidur/tinna/04-frum.jpg",
+          "sha256": "5d07629e2bd4724a3cf5336122454716218b79ce95a9ce542973e5d000dce74a",
+          "bytes": 4099328,
+          "width": 2539,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 5,
+          "sourceURL": "https://imgur.com/enrsj72.jpeg",
+          "imageId": "enrsj72",
+          "downloadURL": "https://i.imgur.com/enrsj72.jpeg",
+          "original": "sidur/tinna/05-frum.jpg",
+          "sha256": "4fc4299c7da1a4b57357f488e1cd97c3fb05f2b9c8b9a9fb9c3955591b5c6e39",
+          "bytes": 4195499,
+          "width": 2539,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 6,
+          "sourceURL": "https://imgur.com/BeAof7y.jpeg",
+          "imageId": "BeAof7y",
+          "downloadURL": "https://i.imgur.com/BeAof7y.jpeg",
+          "original": "sidur/tinna/06-frum.jpg",
+          "sha256": "fc943ecf806241051003dae2791bb55017e58ce6211fc4e5b207a1886478185f",
+          "bytes": 3671587,
+          "width": 2539,
+          "height": 3508,
+          "format": "JPEG"
+        }
+      ]
+    },
+    {
+      "legacyKey": "tolli",
+      "id": "tolli",
+      "author": "Tolli",
+      "pages": [
+        {
+          "number": 1,
+          "sourceURL": "https://imgur.com/MkF7Imn.jpeg",
+          "imageId": "MkF7Imn",
+          "downloadURL": "https://i.imgur.com/MkF7Imn.jpeg",
+          "original": "sidur/tolli/01-frum.jpg",
+          "sha256": "d0e316563e23a823315f37c442b9ecee544f19f0f8bd1e99852f09b1bffb4bee",
+          "bytes": 895643,
+          "width": 1769,
+          "height": 2472,
+          "format": "JPEG"
+        },
+        {
+          "number": 2,
+          "sourceURL": "https://imgur.com/19xfG4h.jpeg",
+          "imageId": "19xfG4h",
+          "downloadURL": "https://i.imgur.com/19xfG4h.jpeg",
+          "original": "sidur/tolli/02-frum.jpg",
+          "sha256": "d596170a4ed7e389ca80490e7ace9ecb54a33c0654ea01672ad8f6173d902a59",
+          "bytes": 1346843,
+          "width": 1761,
+          "height": 2479,
+          "format": "JPEG"
+        },
+        {
+          "number": 3,
+          "sourceURL": "https://imgur.com/DZ6iBot.jpeg",
+          "imageId": "DZ6iBot",
+          "downloadURL": "https://i.imgur.com/DZ6iBot.jpeg",
+          "original": "sidur/tolli/03-frum.jpg",
+          "sha256": "894b274a42e65379b08389bc5ee0f9dfd9bfaf573c3da352a1e65e4eb62d1bd2",
+          "bytes": 1833106,
+          "width": 1761,
+          "height": 2479,
+          "format": "JPEG"
+        },
+        {
+          "number": 4,
+          "sourceURL": "https://imgur.com/l3LRmtS.jpeg",
+          "imageId": "l3LRmtS",
+          "downloadURL": "https://i.imgur.com/l3LRmtS.jpeg",
+          "original": "sidur/tolli/04-frum.jpg",
+          "sha256": "368fd56a5e4492a9ceb0b8c007c1c8755c0b47d0726c8f369492aeab91ad800a",
+          "bytes": 1532804,
+          "width": 1761,
+          "height": 2479,
+          "format": "JPEG"
+        },
+        {
+          "number": 5,
+          "sourceURL": "https://imgur.com/8znoGX5.jpeg",
+          "imageId": "8znoGX5",
+          "downloadURL": "https://i.imgur.com/8znoGX5.jpeg",
+          "original": "sidur/tolli/05-frum.jpg",
+          "sha256": "d6ff5fa55663f2d8e1d639d1ebc6edb9fba1d5f3e558664db5727b53c5539413",
+          "bytes": 1154182,
+          "width": 1761,
+          "height": 2479,
+          "format": "JPEG"
+        },
+        {
+          "number": 6,
+          "sourceURL": "https://imgur.com/9dtVCVY.jpeg",
+          "imageId": "9dtVCVY",
+          "downloadURL": "https://i.imgur.com/9dtVCVY.jpeg",
+          "original": "sidur/tolli/06-frum.jpg",
+          "sha256": "dfb44fd9de64ccd014fa882b79b14d17e5be21ddf05738413a27ee2518a002b1",
+          "bytes": 1176828,
+          "width": 1761,
+          "height": 2479,
+          "format": "JPEG"
+        }
+      ]
+    },
+    {
+      "legacyKey": "vigdís",
+      "id": "vigdis",
+      "author": "Vigdís",
+      "pages": [
+        {
+          "number": 1,
+          "sourceURL": "https://imgur.com/zIpE879.jpeg",
+          "imageId": "zIpE879",
+          "downloadURL": "https://i.imgur.com/zIpE879.jpeg",
+          "original": "sidur/vigdis/01-frum.jpg",
+          "sha256": "48d5c1dae910fdc221590bc13cdaf1057a0ac3ed2d7276e5cb9217a4a568193e",
+          "bytes": 760444,
+          "width": 2552,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 2,
+          "sourceURL": "https://imgur.com/phL5ApC.jpeg",
+          "imageId": "phL5ApC",
+          "downloadURL": "https://i.imgur.com/phL5ApC.jpeg",
+          "original": "sidur/vigdis/02-frum.jpg",
+          "sha256": "d3b7dfd3c300fe04dd95b87e66952e95101deebfef949d04eca4aed59b5ff01d",
+          "bytes": 1027549,
+          "width": 2552,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 3,
+          "sourceURL": "https://imgur.com/E7xRre6.jpeg",
+          "imageId": "E7xRre6",
+          "downloadURL": "https://i.imgur.com/E7xRre6.jpeg",
+          "original": "sidur/vigdis/03-frum.jpg",
+          "sha256": "471227adc2f27d7c90a28dbeb170b3f79b053554df621611fd60aa67cd13184a",
+          "bytes": 1584455,
+          "width": 2552,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 4,
+          "sourceURL": "https://imgur.com/MRoeVRn.jpeg",
+          "imageId": "MRoeVRn",
+          "downloadURL": "https://i.imgur.com/MRoeVRn.jpeg",
+          "original": "sidur/vigdis/04-frum.jpg",
+          "sha256": "567ca268cde8f15a98c55f53f3c16872146f23ad60c1eeff05fa47845fcaedbf",
+          "bytes": 1005413,
+          "width": 2552,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 5,
+          "sourceURL": "https://imgur.com/zZWuqlO.jpeg",
+          "imageId": "zZWuqlO",
+          "downloadURL": "https://i.imgur.com/zZWuqlO.jpeg",
+          "original": "sidur/vigdis/05-frum.jpg",
+          "sha256": "86f455f77bbeed6c06da0ae72d03ab7c11cf86a82cb41e3c4aef381175df73d8",
+          "bytes": 1218359,
+          "width": 2552,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 6,
+          "sourceURL": "https://imgur.com/QI5Hfuo.jpeg",
+          "imageId": "QI5Hfuo",
+          "downloadURL": "https://i.imgur.com/QI5Hfuo.jpeg",
+          "original": "sidur/vigdis/06-frum.jpg",
+          "sha256": "a8675725e7f849505e7f87b4d2d4dc702e19d34a2160a8f83ab6902ce4a6c4e3",
+          "bytes": 935948,
+          "width": 2552,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 7,
+          "sourceURL": "https://imgur.com/HDKTFGS.jpeg",
+          "imageId": "HDKTFGS",
+          "downloadURL": "https://i.imgur.com/HDKTFGS.jpeg",
+          "original": "sidur/vigdis/07-frum.jpg",
+          "sha256": "909ef4e97a08512249aec76db63e97a54fff84a7f153de9d7f18579843a01615",
+          "bytes": 1150605,
+          "width": 2552,
+          "height": 3508,
+          "format": "JPEG"
+        },
+        {
+          "number": 8,
+          "sourceURL": "https://imgur.com/QQp0m6R.jpeg",
+          "imageId": "QQp0m6R",
+          "downloadURL": "https://i.imgur.com/QQp0m6R.jpeg",
+          "original": "sidur/vigdis/08-frum.jpg",
+          "sha256": "f16c1f77f8a054bc05236500524d5d39faf26bfa18273eee288756cf5f17ab41",
+          "bytes": 786292,
+          "width": 2552,
+          "height": 3508,
+          "format": "JPEG"
+        }
+      ]
+    },
+    {
+      "legacyKey": "gabríela",
+      "id": "gabriela",
+      "author": "Gabríela Rós",
+      "pages": [
+        {
+          "number": 1,
+          "sourceURL": "https://imgur.com/5Murltx.jpeg",
+          "imageId": "5Murltx",
+          "downloadURL": "https://i.imgur.com/5Murltx.jpeg",
+          "original": "sidur/gabriela/01-frum.jpg",
+          "sha256": "94e4db0380984b2363472fcd2d510b69ed55f921e8384d4ca6b1cdf463ff9121",
+          "bytes": 2976561,
+          "width": 3508,
+          "height": 4960,
+          "format": "JPEG"
+        },
+        {
+          "number": 2,
+          "sourceURL": "https://imgur.com/EcpXoYc.jpeg",
+          "imageId": "EcpXoYc",
+          "downloadURL": "https://i.imgur.com/EcpXoYc.jpeg",
+          "original": "sidur/gabriela/02-frum.jpg",
+          "sha256": "fa7466b51d0b08df90f4ed6b599ac6c54e7b2752c03a1f79a81de6a911485214",
+          "bytes": 2248010,
+          "width": 3508,
+          "height": 4960,
+          "format": "JPEG"
+        },
+        {
+          "number": 3,
+          "sourceURL": "https://imgur.com/tHrhNe9.jpeg",
+          "imageId": "tHrhNe9",
+          "downloadURL": "https://i.imgur.com/tHrhNe9.jpeg",
+          "original": "sidur/gabriela/03-frum.jpg",
+          "sha256": "3fa62566ba5c2f8ebedd95143262f2b0bd6b442467152d7507e751903ef7adf2",
+          "bytes": 3419788,
+          "width": 3508,
+          "height": 4960,
+          "format": "JPEG"
+        },
+        {
+          "number": 4,
+          "sourceURL": "https://imgur.com/V7VJKjn.jpeg",
+          "imageId": "V7VJKjn",
+          "downloadURL": "https://i.imgur.com/V7VJKjn.jpeg",
+          "original": "sidur/gabriela/04-frum.jpg",
+          "sha256": "30d1cdb8df12ad483e2c66c68076fc9e4dcbda58246eddda3075c31b7112815e",
+          "bytes": 2531213,
+          "width": 3508,
+          "height": 4960,
+          "format": "JPEG"
+        },
+        {
+          "number": 5,
+          "sourceURL": "https://imgur.com/Zbl1nx2.jpeg",
+          "imageId": "Zbl1nx2",
+          "downloadURL": "https://i.imgur.com/Zbl1nx2.jpeg",
+          "original": "sidur/gabriela/05-frum.jpg",
+          "sha256": "78805460d92622116e330be7d54414e54aa7edcbf7b9758e316c5fbf949de2fd",
+          "bytes": 2286639,
+          "width": 3508,
+          "height": 4960,
+          "format": "JPEG"
+        },
+        {
+          "number": 6,
+          "sourceURL": "https://imgur.com/Q2opaJP.jpeg",
+          "imageId": "Q2opaJP",
+          "downloadURL": "https://i.imgur.com/Q2opaJP.jpeg",
+          "original": "sidur/gabriela/06-frum.jpg",
+          "sha256": "cc39882ce8138f79f92f94e542d0fde714d12b28380d7638d1d23a72c387a2db",
+          "bytes": 2570014,
+          "width": 3508,
+          "height": 4960,
+          "format": "JPEG"
+        },
+        {
+          "number": 7,
+          "sourceURL": "https://imgur.com/SGVzL7L.jpeg",
+          "imageId": "SGVzL7L",
+          "downloadURL": "https://i.imgur.com/SGVzL7L.jpeg",
+          "original": "sidur/gabriela/07-frum.jpg",
+          "sha256": "d8e38a2250556d955df93339f883ab6c101db208ba4c1a643f271428c8de8d72",
+          "bytes": 2430049,
+          "width": 3508,
+          "height": 4960,
+          "format": "JPEG"
+        },
+        {
+          "number": 8,
+          "sourceURL": "https://imgur.com/niBVE4L.jpeg",
+          "imageId": "niBVE4L",
+          "downloadURL": "https://i.imgur.com/niBVE4L.jpeg",
+          "original": "sidur/gabriela/08-frum.jpg",
+          "sha256": "d1aed5bf43f0d005aca5931302b34302c7228f396934ff98d15a9919a2af8fe1",
+          "bytes": 2369427,
+          "width": 3508,
+          "height": 4960,
+          "format": "JPEG"
+        }
+      ]
+    }
+  ],
+  "preservedAt": "2026-10-17T15:16:56.690217+00:00"
+}
