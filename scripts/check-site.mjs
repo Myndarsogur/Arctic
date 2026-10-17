@@ -44,13 +44,15 @@ for(const [engine,label]of[[chromium,'Chrome'],[webkit,'WebKit']]){
     assert.equal(await p.evaluate(()=>document.fonts.check('24px Lif','ÁÐÉÍÓÖÞÆÚÝáéíóöþæúýð')),true);
     const headingFont=await p.locator('h1').first().evaluate(h=>getComputedStyle(h).fontFamily);
     assert.ok(headingFont.includes('Lif'));
-    assert.ok((await p.locator('.brand').evaluate(h=>getComputedStyle(h).fontFamily)).includes('ArcticLuke'));
     if(route===''){
      assert.equal(await p.locator('.story-card').count(),12);
      assert.equal(await p.locator('.project-link').getAttribute('href'),'/handbok/');
      assert.equal(await p.locator('.mail-art,.envelope,.story-number,.page-count,#continue-reading').count(),0);
-     assert.equal((await p.locator('.presenter .brand').innerText()).trim(),'THE ARCTIC COMICS JOURNAL');
-     assert.equal((await p.locator('.presents').innerText()).trim(),'kynnir');
+     assert.equal(await p.locator('.presenter,.brand,.presents').count(),0);
+     assert.equal(await p.getByRole('link',{name:'Handbókin',exact:true}).count(),1);
+     assert.equal(await p.getByRole('link',{name:'English · Project handbook',exact:true}).count(),1);
+     assert.equal((await p.locator('.home-header').innerText()).trim(),'');
+     assert.equal(await p.locator('.nav-icon').evaluateAll(links=>links.every(link=>{const box=link.getBoundingClientRect();return box.width>=44&&box.height>=44;})),true);
      assert.equal((await p.locator('#library-title').innerText()).replace(/\s+/g,' ').trim(),'Bréf frá heimskautinu');
      assert.equal(await p.locator('.story-caption').allTextContents().then(captions=>captions.some(text=>/\d/.test(text))),false);
      assert.equal(/Tólf myndasögur|83 síður|Opnaðu sögu|Halda áfram/.test(await p.locator('#library').innerText()),false);
@@ -58,6 +60,7 @@ for(const [engine,label]of[[chromium,'Chrome'],[webkit,'WebKit']]){
      assert.ok(artworkWidth>=(width<=580?width*.8:width<=1100?width*.35:width*.25));
 
     }else{
+     assert.ok((await p.locator('.brand').evaluate(h=>getComputedStyle(h).fontFamily)).includes('ArcticLuke'));
      assert.equal(await p.locator('.book-chapter').count(),6);
      assert.equal(await p.locator('.partner-links a').count(),8);
      assert.equal(await p.locator('.book-question').count(),5);
@@ -86,7 +89,11 @@ for(const [engine,label]of[[chromium,'Chrome'],[webkit,'WebKit']]){
    await p.waitForURL(`**/handbok/#${id}`);
    assert.equal(await p.locator(`#${id}`).count(),1);
   }
-  await p.goto(new URL('handbok/',base).href);
+  await p.goto(base);
+  await p.getByRole('link',{name:'English · Project handbook',exact:true}).click();
+  assert.equal(await p.locator('html').getAttribute('lang'),'en');
+  await p.locator('.project-link').click();
+  await p.getByRole('link',{name:'Handbókin',exact:true}).click();
   await p.locator('.book-toc a[href="#workshops"]').click();
   await p.waitForFunction(()=>document.querySelector('.book-toc a[href="#workshops"]').getAttribute('aria-current')==='true');
   await p.locator('.language-link').click();

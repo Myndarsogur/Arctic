@@ -1,5 +1,5 @@
-/* Approved Lif outlines for lettering, original Luke outlines for the name.
-   Chrome rasterizes the geographic paths; no live text or system fonts enter the image.
+/* Approved Lif outlines for the title; original Luke monogram for the favicons.
+   Chrome rasterizes the artwork; no live text or system fonts enter the image.
    PLAYWRIGHT_MODULE=/path/to/package.json node scripts/build-og.mjs */
 import {readFile,writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
@@ -10,15 +10,11 @@ const {chromium}=createRequire(process.env.PLAYWRIGHT_MODULE||import.meta.url)('
 const root=new URL('../',import.meta.url);
 const inside=svg=>svg.replace(/^<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'').replace(/<(title|desc)>[\s\S]*?<\/\1>/g,'');
 const read=async file=>readFile(new URL(file,root),'utf8');
-const nameSVG=await read('assets/arctic-name.svg');
-const nameViewBox=nameSVG.match(/viewBox="([^"]+)"/)[1];
 const lettering=renderLifArtwork(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-<text x="600" y="215" text-anchor="middle" font-size="25" fill="#526f79">kynnir</text>
-<text x="600" y="350" text-anchor="middle" font-size="110" fill="#23424c">Bréf frá</text>
-<text x="600" y="475" text-anchor="middle" font-size="92" fill="#23424c">heimskautinu</text></svg>`);
+<text x="600" y="290" text-anchor="middle" font-size="122" fill="#23424c">Bréf frá</text>
+<text x="600" y="438" text-anchor="middle" font-size="102" fill="#23424c">heimskautinu</text></svg>`);
 const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><title>Bréf frá heimskautinu · The Arctic Comics Journal</title>
 <rect width="1200" height="630" fill="#edf5f5"/>
-<svg x="210" y="94" width="780" height="72" viewBox="${nameViewBox}" fill="#23424c">${inside(nameSVG)}</svg>
 ${inside(lettering.svg)}
 <path d="M154 548c144-13 270 7 404-2s323-3 488-1" fill="none" stroke="#a2c6ce" stroke-width="2.5"/>
 </svg>`;
