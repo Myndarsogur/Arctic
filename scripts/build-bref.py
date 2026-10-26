@@ -49,7 +49,7 @@ def main():
     assert copies['is'].keys()==copies['en'].keys()
     for key in copies['is']:
         assert set(re.findall(r'\{(\w+)\}',copies['is'][key]))==set(re.findall(r'\{(\w+)\}',copies['en'][key])),key
-    template=(ROOT/'templates/reader.html').read_text()
+    template=(ROOT/'_templates/reader.html').read_text()
     outline='<svg class="cover-outline" viewBox="0 0 300 425" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M8 8c52-6 106 3 155-1s91 0 129 1c5 59-2 106 2 160s-3 125 0 167q2 43-2 82c-57 6-107-3-156 1s-90-2-127 0c-5-55 2-104-2-158s2-104-1-155Q3 55 8 8Z"/></svg>'
     bookmark='<svg class="story-bookmark" viewBox="0 0 24 38" aria-hidden="true"><path d="M4 3q8-3 16 0l-1 30-7-5-8 6Z"/><path d="m7 6 1 17"/></svg>'
     for lang,copy in copies.items():
